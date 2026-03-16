@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AltQuad Process Vertical Knowledge Hub</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg-primary:#191919;--bg-secondary:#232323;--bg-tertiary:#2c2c2c;
+  --text-primary:#e8e8e5;--text-secondary:#9b9b97;--text-tertiary:#636360;
+  --border-light:rgba(255,255,255,0.07);--border-mid:rgba(255,255,255,0.13);
+  --accent:#529cca;--accent-bg:#1a2f3f;--radius:8px;
+}
+:root.light{
+  --bg-primary:#ffffff;--bg-secondary:#f7f7f5;--bg-tertiary:#f1f0ec;
+  --text-primary:#1a1a1a;--text-secondary:#6b6b6b;--text-tertiary:#999;
+  --border-light:rgba(0,0,0,0.08);--border-mid:rgba(0,0,0,0.15);
+  --accent:#2383e2;--accent-bg:#e8f3fd;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;background:var(--bg-primary);color:var(--text-primary);display:flex;height:100vh;overflow:hidden}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.sidebar{width:240px;min-width:240px;background:var(--bg-secondary);border-right:1px solid var(--border-light);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.sidebar-header{padding:12px 16px;border-bottom:1px solid var(--border-light)}
+.workspace-name{font-weight:600;font-size:13px;display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:6px;cursor:default}
+.ws-icon{width:24px;height:24px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:5px;display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:700;flex-shrink:0}
+.sidebar-actions{padding:4px 8px;display:flex;flex-direction:column;gap:1px;border-bottom:1px solid var(--border-light);padding-bottom:8px}
+.sa-btn{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:4px;cursor:pointer;font-size:13px;color:var(--text-secondary)}
+.sa-btn:hover{background:var(--bg-tertiary);color:var(--text-primary)}
+.sidebar-section{padding:12px 16px 4px;font-size:11px;font-weight:500;color:var(--text-tertiary);letter-spacing:0.06em;text-transform:uppercase}
+.nav-tree{flex:1;overflow-y:auto;padding:0 8px 16px}
+.nav-item{display:flex;align-items:center;gap:4px;padding:4px 8px;border-radius:4px;cursor:pointer;color:var(--text-secondary);font-size:13px;user-select:none;transition:background 0.1s}
+.nav-item:hover{background:var(--bg-tertiary);color:var(--text-primary)}
+.nav-item.active{background:var(--bg-tertiary);color:var(--text-primary);font-weight:500}
+.nav-item.d1{padding-left:20px}
+.nav-item.d2{padding-left:36px}
+.nav-item.d3{padding-left:52px}
+.nav-toggle{width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-tertiary);transition:transform 0.15s;flex-shrink:0}
+.nav-toggle.open{transform:rotate(90deg)}
+.nav-emoji{width:18px;text-align:center;font-size:13px;flex-shrink:0}
+.nav-label{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav-children{display:none}
+.nav-children.open{display:block}
+.main{flex:1;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.topbar{height:44px;display:flex;align-items:center;padding:0 24px;border-bottom:1px solid var(--border-light);gap:6px;flex-shrink:0;background:var(--bg-primary)}
+.breadcrumb{display:flex;align-items:center;gap:4px;font-size:13px;color:var(--text-secondary)}
+.bc-link{cursor:pointer;color:var(--text-secondary)}
+.bc-link:hover{color:var(--text-primary)}
+.bc-cur{color:var(--text-primary);font-weight:500}
+.bc-sep{opacity:0.4;font-size:12px}
+.content-wrap{flex:1;overflow-y:auto;display:flex;justify-content:center;padding:0 0 40px}
+.content{padding:40px 80px 80px;max-width:860px;width:100%}
+@media(max-width:900px){.content{padding:32px 32px 60px}}
+.page-icon{font-size:48px;margin-bottom:8px;line-height:1}
+.page-title{font-size:36px;font-weight:700;line-height:1.2;margin-bottom:24px;color:var(--text-primary)}
+.page-desc{font-size:15px;color:var(--text-secondary);line-height:1.7;margin-bottom:28px;padding:12px 16px;background:var(--bg-secondary);border-left:3px solid #d0d0d0;border-radius:0 6px 6px 0}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:24px}
+.card{background:var(--bg-primary);border:1px solid var(--border-light);border-radius:var(--radius);padding:16px;cursor:pointer;transition:border-color 0.15s,background 0.15s}
+.card:hover{border-color:var(--border-mid);background:var(--bg-secondary)}
+.card-icon{font-size:22px;margin-bottom:8px}
+.card-title{font-weight:600;font-size:14px;margin-bottom:4px;color:var(--text-primary)}
+.card-sub{font-size:12px;color:var(--text-secondary);line-height:1.5}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:500;margin-top:8px}
+.badge-green{background:#1a3a25;color:#6fcf97}
+.badge-orange{background:#3a2e10;color:#f2c94c}
+.badge-blue{background:#0e2a38;color:#56ccf2}
+.light .badge-green{background:#d4edda;color:#155724}
+.light .badge-orange{background:#fff3cd;color:#856404}
+.light .badge-blue{background:#d1ecf1;color:#0c5460}
+h2{font-size:20px;font-weight:600;margin:32px 0 12px;color:var(--text-primary)}
+h3{font-size:16px;font-weight:600;margin:20px 0 8px;color:var(--text-primary)}
+p{font-size:14px;line-height:1.7;color:var(--text-secondary);margin-bottom:12px}
+.divider{height:1px;background:var(--border-light);margin:28px 0}
+.callout{display:flex;gap:12px;padding:12px 16px;background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:var(--radius);margin-bottom:12px;font-size:13px;line-height:1.6;color:var(--text-secondary)}
+.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.callout strong{color:var(--text-primary)}
+.raci-table{width:100%;border-collapse:collapse;margin:12px 0 20px;font-size:13px}
+.raci-table th{background:var(--bg-secondary);padding:8px 12px;text-align:left;font-weight:600;border:1px solid var(--border-light);font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.04em}
+.raci-table td{padding:8px 12px;border:1px solid var(--border-light);color:var(--text-primary)}
+.raci-table tbody tr:hover{background:var(--bg-secondary)}
+ol.steps{list-style:none;counter-reset:step;margin:8px 0 16px}
+ol.steps li{counter-increment:step;display:flex;gap:12px;margin-bottom:12px;font-size:14px;line-height:1.6;color:var(--text-secondary)}
+ol.steps li::before{content:counter(step);min-width:22px;height:22px;background:var(--bg-secondary);border:1px solid var(--border-mid);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px;color:var(--text-secondary)}
+.sub-steps{list-style:none;margin:8px 0 4px 34px}
+.sub-steps li{display:flex;gap:8px;margin-bottom:6px;font-size:13px;color:var(--text-secondary);line-height:1.5}
+.sub-steps li::before{content:"•";color:var(--text-tertiary);flex-shrink:0}
+.ilink{color:var(--accent);cursor:pointer;border-bottom:1px solid transparent;transition:border-color 0.1s}
+.ilink:hover{border-bottom-color:var(--accent)}
+code{font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;background:var(--bg-secondary);padding:2px 6px;border-radius:4px;color:var(--text-primary);border:1px solid var(--border-light)}
+.code-block{background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:var(--radius);padding:14px 16px;font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;line-height:1.8;white-space:pre-wrap;word-break:break-word;color:var(--text-primary);margin:12px 0 20px}
+.section-tag{display:inline-flex;align-items:center;font-size:12px;font-weight:500;padding:3px 10px;border-radius:4px;margin-bottom:20px;background:var(--accent-bg);color:#56ccf2;border:1px solid rgba(82,156,202,0.25)}
+.light .section-tag{color:#0c5460;border-color:#bee5eb}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-secondary);cursor:pointer;margin-bottom:24px;padding:4px 0}
+.back-btn:hover{color:var(--text-primary)}
+
+.theme-toggle{position:fixed;bottom:20px;right:20px;width:36px;height:36px;border-radius:50%;background:var(--bg-tertiary);border:1px solid var(--border-mid);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;z-index:100;transition:background 0.2s}
+.theme-toggle:hover{background:var(--bg-secondary)}
+</style>
+</head>
+<body>
+
+<div class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" id="themeBtn">🌙</div>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="workspace-name">
+      <div class="ws-icon">AQ</div>
+      AltQuad Global LLP
+    </div>
+  </div>
+  <div class="sidebar-actions">
+    <div class="sa-btn">🔍 Search (Ctrl+F)</div>
+    <div class="sa-btn">⚙️ Settings</div>
+  </div>
+  <div class="sidebar-section">Workspace</div>
+  <div class="nav-tree" id="navTree"></div>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div class="breadcrumb" id="breadcrumb"></div>
+  </div>
+  <div class="content-wrap">
+    <div class="content" id="content"></div>
+  </div>
+</div>
+
+<script>
+const pages={
+hub:{icon:"🏠",label:"Process Vertical Hub",parent:null,render:()=>`
+<div class="page-icon">🏠</div>
+<h1 class="page-title">Process Vertical Knowledge Hub</h1>
+<div class="page-desc"><em>One stop solution for all your requirements for process excellence vertical.</em></div>
+<h2>Choose your path 🛣️</h2>
+<div class="card-grid">
+  <div class="card" onclick="nav('welcome')"><div class="card-icon">🆕</div><div class="card-title">New to AQ? Start Onboarding</div><div class="card-sub">A guided onboarding path so you can start working confidently without chasing people for basic info.</div><div class="badge badge-green">LIVE</div></div>
+  <div class="card" onclick="nav('sop_library')"><div class="card-icon">👨‍🏫</div><div class="card-title">SOP Library</div><div class="card-sub">Step-by-step SOPs for delivering work consistently, with clear inputs/outputs and templates.</div><div class="badge badge-green">LIVE</div></div>
+  <div class="card" onclick="nav('templates')"><div class="card-icon">📜</div><div class="card-title">Templates & References</div><div class="card-sub">A single place to get copy-ready templates and gold-standard examples.</div><div class="badge badge-green">LIVE</div></div>
+  <div class="card"><div class="card-icon">🎓</div><div class="card-title">Learning Management System</div><div class="card-sub">A structured learning path curated by our founders — for new joiners and per project.</div><div class="badge badge-orange">COMING SOON</div></div>
+</div>
+<div class="divider"></div>
+<p style="font-size:12px;color:var(--text-tertiary)">💡 Press Ctrl+F to search this page &nbsp;·&nbsp; Managed by Arjun Dhamanaskar, AltQuad Global LLP</p>`},
+
+welcome:{icon:"👋",label:"Welcome to AltQuad!",parent:"hub",render:()=>`
+<div class="back-btn" onclick="nav('hub')">← Back</div>
+<div class="page-icon">👋</div>
+<h1 class="page-title">Welcome to AltQuad!</h1>
+<p>After reading this page, you will come to know about AltQuad, the org structure, the process vertical, and things to do to prepare for your work. <em>(Estimated Read Time: 10 minutes)</em></p>
+<div class="card-grid">
+  <div class="card" onclick="nav('about')"><div class="card-icon">🏢</div><div class="card-title">1/5 — About AltQuad</div><div class="card-sub">Get to know your organisation.</div></div>
+  <div class="card" onclick="nav('about')"><div class="card-icon">👥</div><div class="card-title">2/5 — The Team</div><div class="card-sub">You won't be working alone!</div></div>
+  <div class="card" onclick="nav('about')"><div class="card-icon">💼</div><div class="card-title">3/5 — What We Do</div><div class="card-sub">Our services and verticals.</div></div>
+  <div class="card" onclick="nav('laptop_checklist')"><div class="card-icon">💻</div><div class="card-title">4/5 — What's Expected</div><div class="card-sub">What is expected from you.</div></div>
+  <div class="card" onclick="nav('laptop_checklist')"><div class="card-icon">✅</div><div class="card-title">5/5 — Laptop Setup</div><div class="card-sub">Get your laptop ready before Day 1.</div></div>
+</div>`},
+
+about:{icon:"🏢",label:"About AltQuad Global LLP",parent:"hub",render:()=>`
+<div class="back-btn" onclick="nav('hub')">← Back</div>
+<div class="page-icon">🏢</div>
+<h1 class="page-title">About AltQuad Global LLP</h1>
+<h2>Who We Are</h2>
+<p>AltQuad Global LLP is a premium offshore services provider built by Chartered Accountants, exclusively for accounting firms. Founded in 2022 and based in Mumbai, AltQuad transforms accounting practices through three pillars: <strong>Trust, Technology, and Talent.</strong></p>
+<p>Unlike budget offshoring providers, AltQuad delivers premium solutions that protect client reputation while driving growth. Serving firms across the USA, Canada, UK, Australia, and beyond.</p>
+<h2>Meet Our Founders</h2>
+<div class="card-grid">
+  <div class="card"><div class="card-icon">👤</div><div class="card-title">CA Rushabh Deliwala</div><div class="card-sub">Co-founder, Head — Process Vertical<br><br>Chartered Accountant · 10+ years industry experience</div></div>
+  <div class="card"><div class="card-icon">👤</div><div class="card-title">CA Hansal Bavishi</div><div class="card-sub">Co-founder, Head — KPO Vertical<br><br>CA · CFA L2 Cleared · 10+ years industry experience</div></div>
+</div>
+<h2>Two Verticals, One Mission</h2>
+<div class="card-grid">
+  <div class="card"><div class="card-icon">📊</div><div class="card-title">Offshore Accounting Services</div><div class="card-sub">Bookkeeping, AP/AR, payroll, tax, and analytics — allowing firms to scale seamlessly.</div></div>
+  <div class="card" onclick="nav('in_detail')"><div class="card-icon">⚙️</div><div class="card-title">Process Excellence</div><div class="card-sub">ERP Implementation, ERP Diagnostics, Automation Projects, SOP Preparation.</div></div>
+</div>`},
+
+in_detail:{icon:"📂",label:"In Detail: Projects",parent:"hub",render:()=>`
+<div class="back-btn" onclick="nav('hub')">← Back</div>
+<div class="page-icon">📂</div>
+<h1 class="page-title">In Detail: Projects</h1>
+<p>Deep dive into each project type delivered by AltQuad's Process Excellence vertical.</p>
+<div class="card-grid">
+  <div class="card" onclick="nav('sop_erp_diag')"><div class="card-icon">🔍</div><div class="card-title">ERP Diagnostic Analysis</div><div class="card-sub">More like a doctor, but for ERP systems! Diagnosing gaps in existing setups.</div></div>
+  <div class="card"><div class="card-icon">⚡</div><div class="card-title">ERP Implementation</div><div class="card-sub">Implementing new ERP systems for our clients end-to-end.</div></div>
+  <div class="card"><div class="card-icon">🤖</div><div class="card-title">Automation Projects</div><div class="card-sub">Just automate it, mate! Process automation using modern tools.</div></div>
+  <div class="card"><div class="card-icon">✅</div><div class="card-title">Quality Assurance</div><div class="card-sub">We are detectives — finding errors in your accounts.</div></div>
+  <div class="card"><div class="card-icon">🧹</div><div class="card-title">Master Data Cleanup</div><div class="card-sub">Didn't clean your house today? Do it here.</div></div>
+</div>`},
+
+sop_library:{icon:"📚",label:"SOP Library",parent:"hub",render:()=>`
+<div class="back-btn" onclick="nav('hub')">← Back</div>
+<div class="page-icon">📚</div>
+<h1 class="page-title">SOP Library</h1>
+<div class="page-desc">This is the <strong>single source of truth</strong> for how we execute work across projects and service lines. Each SOP is written so you can complete the task independently with clear inputs, steps, outputs, and templates.</div>
+<h2>Navigate by Project Type</h2>
+<div class="card-grid">
+  <div class="card" onclick="nav('sop_erp_diag')"><div class="card-icon">🔍</div><div class="card-title">ERP Diagnostic</div><div class="card-sub">More like a doctor, but for ERP systems!</div><div class="badge badge-green">LIVE</div></div>
+  <div class="card"><div class="card-icon">⚡</div><div class="card-title">ERP Implementation</div><div class="card-sub">Implementing new systems for clients.</div><div class="badge badge-orange">IN PROGRESS</div></div>
+  <div class="card"><div class="card-icon">🤖</div><div class="card-title">Automation Projects</div><div class="card-sub">Just automate it, mate!</div><div class="badge badge-orange">IN PROGRESS</div></div>
+  <div class="card"><div class="card-icon">🧹</div><div class="card-title">Master Data Cleanup</div><div class="card-sub">Didn't clean your house today? Do it here.</div><div class="badge badge-orange">IN PROGRESS</div></div>
+  <div class="card"><div class="card-icon">✅</div><div class="card-title">Quality Assurance</div><div class="card-sub">We are detectives — finding errors.</div><div class="badge badge-orange">IN PROGRESS</div></div>
+  <div class="card"><div class="card-icon">📄</div><div class="card-title">SOP Preparation</div><div class="card-sub">We have to make a SOP — just like this one!</div><div class="badge badge-orange">IN PROGRESS</div></div>
+</div>
+<div class="divider"></div>
+<p style="font-size:13px">Looking for a specific template? <span class="ilink" onclick="nav('templates')">Browse Templates & References →</span></p>`},
+
+sop_erp_diag:{icon:"🔍",label:"SOP — ERP Diagnostics",parent:"sop_library",render:()=>`
+<div class="back-btn" onclick="nav('sop_library')">← SOP Library</div>
+<div class="section-tag">Project Type: ERP Diagnostic</div>
+<div class="page-icon">🔍</div>
+<h1 class="page-title">SOP — ERP Diagnostics</h1>
+<p>This SOP covers the full lifecycle of an ERP Diagnostic project across 4 phases. Click any phase or task to jump to its detailed SOP.</p>
+<div class="card-grid" style="grid-template-columns:repeat(4,1fr)">
+  <div class="card" onclick="nav('phase0')"><div class="card-icon">0️⃣</div><div class="card-title">Phase 0</div><div class="card-sub">Kick-off</div></div>
+  <div class="card" onclick="nav('phase1')"><div class="card-icon">1️⃣</div><div class="card-title">Phase 1</div><div class="card-sub">Process Understanding</div></div>
+  <div class="card" onclick="nav('phase2')"><div class="card-icon">2️⃣</div><div class="card-title">Phase 2</div><div class="card-sub">Analysis & Flowcharting</div></div>
+  <div class="card" onclick="nav('phase3')"><div class="card-icon">3️⃣</div><div class="card-title">Phase 3</div><div class="card-sub">Report Preparation</div></div>
+</div>
+<div class="divider"></div>
+<h2>All Tasks at a Glance</h2>
+<table class="raci-table"><thead><tr><th>Task</th><th>Name</th><th>Output</th><th>Owner</th><th>Approver</th></tr></thead><tbody>
+${[["0.1","phase0","Start Kick-off Tasks","Kick-off email sent","Executive","PM"],["0.2","phase0","Prepare Questionnaire","Approved questionnaire","Executive","SM"],["0.3","phase0","Prepare Project Plan","Plan shared with client","PM","VH/CEO"],["0.4","phase0","Prepare Cadence Deck","Slot blocked + PPT ready","Executive","SM"],["1.1","phase1","Schedule PU Meeting","Meeting invite sent","Executive","—"],["1.2","phase1","Conduct PU Call","Call completed, notes taken","Exec + PM","—"],["1.3","phase1","Post-Meeting Rituals","Recording in OneDrive + NotebookLM","Executive","PM"],["1.4","phase1","Write Meeting Minutes","MoM sent within 24h","Executive","PM"],["2.1","phase2","As-Is Flowchart","Approved flowchart in Miro","Executive","SM"],["2.2","phase2","Issue Analysis & Solutioning","Approved Excel","Exec + PM","VH"],["2.3","phase2","To-Be Flowchart","Reviewed by client","Executive","SM"],["3.1","phase3","Report Preparation","Final report approved","Exec + PM","VH"]].map(([id,pg,name,out,own,appr])=>`<tr><td><strong>${id}</strong></td><td><span class="ilink" onclick="nav('${pg}')">${name}</span></td><td>${out}</td><td>${own}</td><td>${appr}</td></tr>`).join("")}
+</tbody></table>`},
+
+phase0:{icon:"0️⃣",label:"Phase 0: Kick-off",parent:"sop_erp_diag",render:()=>`
+<div class="back-btn" onclick="nav('sop_erp_diag')">← ERP Diagnostics SOP</div>
+<div class="section-tag">Phase 0 · ERP Diagnostic</div>
+<div class="page-icon">0️⃣</div>
+<h1 class="page-title">Phase 0: Project Kick-off</h1>
+<p>Everything done when a new project starts — from the first email to the project plan and cadence deck setup.</p>
+
+<h2>Task 0.1 — Start Kick-off Tasks</h2>
+<div class="callout"><div class="callout-icon">🎯</div><div><strong>Purpose:</strong> Send a welcome email to the client to set the context and agenda, aligning all stakeholders at the outset.</div></div>
+<div class="callout"><div class="callout-icon">❓</div><div><strong>When:</strong> As soon as the project starts.</div></div>
+<div class="callout"><div class="callout-icon">✅</div><div><strong>Done When:</strong> The kick-off email, approved by the Project Manager, is shared with the client.</div></div>
+<h3>Roles & Responsibilities</h3>
+<table class="raci-table"><tr><th>Execution</th><th>Review</th><th>Approval</th></tr><tr><td>Executive</td><td>Project Manager</td><td>Senior Manager</td></tr></table>
+<h3>Steps to Follow</h3>
+<ol class="steps">
+<li><div>Open Outlook and compose a new email with the following format:<ul class="sub-steps"><li>To: All stakeholders from the client team</li><li>CC: CPL Team including Product Team (chitraparameswaran@contetra.com)</li><li>Subject: Use the <span class="ilink" onclick="nav('kickoff_email')">Kick-off Email Subject Line →</span></li><li>Body: Use the <span class="ilink" onclick="nav('kickoff_email')">Kick-off Email Body template →</span></li></ul></div></li>
+<li><div>Review all details for accuracy before sending.</div></li>
+<li><div>The email must be sent from the <strong>Project Manager's email ID</strong>.</div></li>
+</ol>
+
+<div class="divider"></div>
+<h2>Task 0.2 — Prepare Questionnaire</h2>
+<div class="callout"><div class="callout-icon">🎯</div><div><strong>Purpose:</strong> Be prepared with the concepts, client's business context, and questions before starting process understanding calls.</div></div>
+<div class="callout"><div class="callout-icon">❓</div><div><strong>When:</strong> At the start of the project, or before any call with the client.</div></div>
+<div class="callout"><div class="callout-icon">✅</div><div><strong>Done When:</strong> An exhaustive list of questions in Excel is prepared and approved by the Project Manager.</div></div>
+<h3>Roles & Responsibilities</h3>
+<table class="raci-table"><tr><th>Execution</th><th>Review</th><th>Approval</th></tr><tr><td>Executive</td><td>Project Manager</td><td>Senior Manager</td></tr></table>
+<h3>Steps to Follow</h3>
+<ol class="steps">
+<li><div>Before creating a questionnaire from scratch, first check if an existing questionnaire for that industry is available. If yes, use it as the base.</div></li>
+<li><div>If no existing questionnaire is available, generate one using the <span class="ilink" onclick="nav('prompts')">Questionnaire Prompt (Prompt 1) →</span></div></li>
+<li><div>Download the standard Questionnaire Excel template and strictly follow that format.</div></li>
+<li><div>After generating with AI, manually review: remove redundant questions and add any additional ones if needed.</div></li>
+<li><div>Get reviewed by the Project Manager and approved by the Senior Manager before use.</div></li>
+</ol>
+
+<div class="divider"></div>
+<h2>Task 0.3 — Prepare Project Plan</h2>
+<div class="callout"><div class="callout-icon">🎯</div><div><strong>Purpose:</strong> Create a complete project plan defining scope, timelines, milestones, responsibilities, and assumptions.</div></div>
+<div class="callout"><div class="callout-icon">❓</div><div><strong>When:</strong> Start of every project. Update before each cadence meeting if changes occur. Share baseline with client during or right after kickoff.</div></div>
+<div class="callout"><div class="callout-icon">✅</div><div><strong>Done When:</strong> Project plan is prepared, approved by Senior Manager, and shared with the client.</div></div>
+<h3>Roles & Responsibilities</h3>
+<table class="raci-table"><tr><th>Execution</th><th>Review</th><th>Approval</th></tr><tr><td>Project Manager</td><td>Senior Manager</td><td>Vertical Head / CEO</td></tr></table>
+<h3>Steps to Follow</h3>
+<ol class="steps">
+<li><div>Use the standard Excel project plan template. Refer to previous project plans for guidance.</div></li>
+<li><div>Submit to Senior Manager for approval. Incorporate any changes suggested.</div></li>
+<li><div>Share with the client using the <span class="ilink" onclick="nav('project_plan_email')">Project Plan Email template →</span></div></li>
+</ol>
+
+<div class="divider"></div>
+<h2>Task 0.4 — Prepare Cadence Deck</h2>
+<div class="callout"><div class="callout-icon">🎯</div><div><strong>Purpose:</strong> Prepare the weekly cadence deck (PPT) for client progress updates.</div></div>
+<div class="callout"><div class="callout-icon">❓</div><div><strong>When:</strong> Weekly (or bi-weekly) throughout the project duration.</div></div>
+<div class="callout"><div class="callout-icon">✅</div><div><strong>Done When:</strong> Cadence slot is blocked, PPT is prepared and reviewed, and meeting is conducted.</div></div>
+<h3>Roles & Responsibilities</h3>
+<table class="raci-table"><tr><th>Execution</th><th>Review</th><th>Approval</th></tr><tr><td>Executive</td><td>Project Manager</td><td>Senior Manager</td></tr></table>
+<h3>Steps to Follow</h3>
+<ol class="steps">
+<li><div>Confirm a cadence slot with the client using the <span class="ilink" onclick="nav('cadence_slot_email')">Cadence Slot Confirmation Email →</span></div></li>
+<li><div>Once confirmed, schedule a recurring MS Teams meeting named: <code>Weekly Check-in | &lt;client&gt; x Contetra</code></div></li>
+<li><div>Prepare the cadence deck using the agreed PPT template. Do not deviate from the standard format.</div></li>
+<li><div>Get the PPT reviewed by the Project Manager.</div></li>
+<li><div>Send the PPT to the client the day before the meeting using the <span class="ilink" onclick="nav('cadence_ppt_email')">Cadence PPT Pre-Read Email →</span></div></li>
+<li><div>After the meeting, send the MoM per <span class="ilink" onclick="nav('phase1')">Task 1.4 — Write Meeting Minutes →</span> and attach the deck as a PDF.</div></li>
+</ol>`},
+
+phase1:{icon:"1️⃣",label:"Phase 1: Process Understanding",parent:"sop_erp_diag",render:()=>`
+<div class="back-btn" onclick="nav('sop_erp_diag')">← ERP Diagnostics SOP</div>
+<div class="section-tag">Phase 1 · ERP Diagnostic</div>
+<div class="page-icon">1️⃣</div>
+<h1 class="page-title">Phase 1: Process Understanding</h1>
+<p>Scheduling and conducting process understanding calls with the client, plus all post-meeting documentation tasks.</p>
+
+<h2>Task 1.1 — Schedule Meeting for Process Understanding</h2>
+<div class="callout"><div class="callout-icon">🎯</div><div><strong>Purpose:</strong> Schedule a meeting to begin process understanding calls with the client.</div></div>
+<div class="callout"><div class="callout-icon">❓</div><div><strong>When:</strong> Before any call with the client.</div></div>
+<div class="callout"><div class="callout-icon">✅</div><div><strong>Done When:</strong> The meeting invite has been scheduled and sent to the client.</div></div>
+<h3>Roles & Responsibilities</h3>
+<table class="raci-table"><tr><th>Execution</th><th>Review</th><th>Approval</th></tr><tr><td>Executive</td><td>—</td><td>—</td></tr></table>
+<h3>Steps to Follow</h3>
+<ol class="steps">
+<li><div>Once the meeting slot is received from the client, open Microsoft Teams.</div></li>
+<li><div>Create the meeting with these details:<ul class="sub-steps"><li>Title: <code>&lt;process&gt; Understanding | &lt;client&gt; x Contetra</code></li><li>Attendees: All concerned people from client + Contetra. Add Senior Manager as optional.</li><li>Enable auto-record. If unavailable, start recording manually at the start.</li><li>Double-check all details and save.</li></ul></div></li>
+</ol>
+
+<div class="divider"></div>
+<h2>Task 1.2 — Conduct Process Understanding Call</h2>
+<div class="callout"><div class="callout-icon">🎯</div><div><strong>Purpose:</strong> Understand the existing business process per the questionnaire prepared in <span class="ilink" onclick="nav('phase0')">Task 0.2 →</span></div></div>
+<div class="callout"><div class="callout-icon">❓</div><div><strong>When:</strong> When a process understanding call is conducted.</div></div>
+<div class="callout"><div class="callout-icon">✅</div><div><strong>Done When:</strong> The call is completed and all questionnaire items are addressed.</div></div>
+<h3>Roles & Responsibilities</h3>
+<table class="raci-table"><tr><th>Execution</th><th>Review</th><th>Approval</th></tr><tr><td>Executive + Project Manager</td><td>—</td><td>—</td></tr></table>
+<h3>Steps to Follow</h3>
+<ol class="steps">
+<li><div>Start with this opening script:<div class="code-block">"Hi everyone. So, I will just set the context of the call. This call is mainly to understand the process of &lt;process name&gt;. You can basically walk us through the process that you follow and in case we have any questions we would ask you."</div></div></li>
+<li><div>Use the <span class="ilink" onclick="nav('phase0')">questionnaire from Task 0.2 →</span> throughout. Ensure all questions are answered by the end of the call.</div></li>
+<li><div>Once all questions are covered, ask this closing question:<div class="code-block">"Would you like to highlight any problems you are facing currently — like doing something manual, something repetitive that can be automated?"</div></div></li>
+<li><div>Feel free to ask even the most basic questions about their business. Take detailed notes throughout.</div></li>
+</ol>
+
+<div class="divider"></div>
+<h2>Task 1.3 — Start Post-Meeting Rituals</h2>
+<div class="callout"><div class="callout-icon">🎯</div><div><strong>Purpose:</strong> Ensure meeting records are properly stored and accessible for future analysis.</div></div>
+<div class="callout"><div class="callout-icon">❓</div><div><strong>When:</strong> As soon as any meeting is concluded.</div></div>
+<div class="callout"><div class="callout-icon">✅</div><div><strong>Done When:</strong> Recording is saved in OneDrive and uploaded to NotebookLM.</div></div>
+<h3>Roles & Responsibilities</h3>
+<table class="raci-table"><tr><th>Execution</th><th>Review</th><th>Approval</th></tr><tr><td>Executive</td><td>Project Manager</td><td>—</td></tr></table>
+<h3>Steps to Follow</h3>
+<ol class="steps">
+<li><div>Save the meeting recording to OneDrive.</div></li>
+<li><div>Download the recording from MS Teams:<ul class="sub-steps"><li>Go to the Teams chat containing the recording.</li><li>Click the arrow icon in the top-right corner of the recording.</li><li>Click Download. If unavailable, ask the meeting scheduler for Edit Access.</li></ul></div></li>
+<li><div>Go to <a href="https://www.freeconvert.com/" target="_blank">freeconvert.com</a> and convert the file from MP4 to MP3. Download the converted file.</div></li>
+<li><div>Upload the MP3 to <a href="https://notebooklm.google.com/" target="_blank">NotebookLM</a>:<ul class="sub-steps"><li>Upload to the existing client notebook. If none exists, create one.</li><li>All recordings for a single client must be stored in the same notebook.</li></ul></div></li>
+<li><div>Proceed to <span class="ilink" onclick="nav('phase1')">Task 1.4 — Write Meeting Minutes →</span> immediately after.</div></li>
+</ol>
+
+<div class="divider"></div>
+<h2>Task 1.4 — Write Meeting Minutes (MoM)</h2>
+<div class="callout"><div class="callout-icon">🎯</div><div><strong>Purpose:</strong> Document everything discussed in writing via email, to avoid future disputes.</div></div>
+<div class="callout"><div class="callout-icon">❓</div><div><strong>When:</strong> Within 24 hours of any meeting.</div></div>
+<div class="callout"><div class="callout-icon">✅</div><div><strong>Done When:</strong> Meeting minutes are sent to all parties via email.</div></div>
+<h3>Roles & Responsibilities</h3>
+<table class="raci-table"><tr><th>Execution</th><th>Review</th><th>Approval</th></tr><tr><td>Executive</td><td>Project Manager</td><td>—</td></tr></table>
+<h3>Steps to Follow</h3>
+<ol class="steps">
+<li><div>Confirm recording is in OneDrive (see <span class="ilink" onclick="nav('phase1')">Task 1.3 →</span> if not done).</div></li>
+<li><div>In NotebookLM, open the client notebook, select the relevant recording, and use the <span class="ilink" onclick="nav('prompts')">Detailed Meeting Notes Prompt (Prompt 2) →</span><br><em>Note: Ensure only the relevant recording is selected. Maintain one notebook per client.</em></div></li>
+<li><div>Paste the generated notes into the MoM Generator tool (HTML file — open in browser). It will auto-generate meeting minutes.</div></li>
+<li><div>Manually review the minutes once for accuracy.</div></li>
+<li><div>Send the MoM via email:<ul class="sub-steps"><li>To: All members from the client team</li><li>CC: Contetra Team (including ramanujam.narayan@contetra.com)</li><li>Subject: <code>Meeting Minutes - &lt;topic&gt; - &lt;client&gt; x Contetra</code></li><li>Body: Paste content from the MoM Tool</li></ul></div></li>
+</ol>`},
+
+phase2:{icon:"2️⃣",label:"Phase 2: Analysis",parent:"sop_erp_diag",render:()=>`
+<div class="back-btn" onclick="nav('sop_erp_diag')">← ERP Diagnostics SOP</div>
+<div class="section-tag">Phase 2 · ERP Diagnostic</div>
+<div class="page-icon">2️⃣</div>
+<h1 class="page-title">Phase 2: Analysis & Flowcharting</h1>
+<p>Mapping the as-is process, identifying issues and solutioning, and preparing the to-be flowchart.</p>
+
+<h2>Task 2.1 — As-Is Flowchart Preparation</h2>
+<div class="callout"><div class="callout-icon">🎯</div><div><strong>Purpose:</strong> Map the flowchart of the existing process as understood from the process understanding calls.</div></div>
+<div class="callout"><div class="callout-icon">❓</div><div><strong>When:</strong> Once all process understanding calls for a particular process are completed.</div></div>
+<div class="callout"><div class="callout-icon">✅</div><div><strong>Done When:</strong> The as-is flowchart is completed and approved by the Project Manager.</div></div>
+<h3>Roles & Responsibilities</h3>
+<table class="raci-table"><tr><th>Execution</th><th>Review</th><th>Approval</th></tr><tr><td>Executive</td><td>Project Manager</td><td>Senior Manager</td></tr></table>
+<h3>Steps to Follow</h3>
+<ol class="steps">
+<li><div>Log in to Miro using the <span class="ilink" onclick="nav('credentials')">shared credentials →</span></div></li>
+<li><div>In NotebookLM, open the client notebook, select the relevant recordings, and use the <span class="ilink" onclick="nav('prompts')">Process Detail Prompt (Prompt 3) →</span></div></li>
+<li><div>Paste the NotebookLM output into ChatGPT and use the <span class="ilink" onclick="nav('prompts')">Flowchart Content Prompt (Prompt 4) →</span></div></li>
+<li><div>Prepare the flowchart in Miro:<ul class="sub-steps"><li>Create a new board.</li><li>Import template: AltQuad Ops Template → click Use.</li><li>Use template boxes, colours, and fonts. Replace all placeholders with actual data.</li><li>Duplicate blocks with Ctrl+D to maintain consistency.</li></ul></div></li>
+<li><div>Map the entire process. Watch recordings multiple times if needed.</div></li>
+<li><div>Submit the completed flowchart to the Project Manager for review.</div></li>
+</ol>
+
+<div class="divider"></div>
+<h2>Task 2.2 — Issue Analysis and Solutioning</h2>
+<div class="callout"><div class="callout-icon">🎯</div><div><strong>Purpose:</strong> Collate and analyse all issues from the process understanding calls and develop solutions.</div></div>
+<div class="callout"><div class="callout-icon">❓</div><div><strong>When:</strong> After all process understanding calls are completed.</div></div>
+<div class="callout"><div class="callout-icon">✅</div><div><strong>Done When:</strong> An Excel sheet in the agreed format is completed and approved by the Project Manager.</div></div>
+<h3>Roles & Responsibilities</h3>
+<table class="raci-table"><tr><th>Execution</th><th>Review</th><th>Approval</th></tr><tr><td>Executive, Project Manager</td><td>Solution Architect</td><td>Vertical Head</td></tr></table>
+<h3>Steps to Follow</h3>
+<ol class="steps">
+<li><div>In NotebookLM with all client recordings selected, use the <span class="ilink" onclick="nav('prompts')">Issue Extraction Prompt (Prompt 5) →</span> to get the full issue list.</div></li>
+<li><div>Note: Some issues may not be explicitly captured in recordings — add these manually to the list.</div></li>
+<li><div>Paste the issue list into ChatGPT along with the <span class="ilink" onclick="nav('prompts')">Issue Analysis Tabular Prompt (Prompt 6) →</span> to generate the structured table.</div></li>
+<li><div>Paste the output into the Issue Analysis Excel template.</div></li>
+<li><div>Review and edit the Excel with the Project Manager. Add additional points before submitting to the Solution Architect.</div></li>
+</ol>
+
+<div class="divider"></div>
+<h2>Task 2.3 — To-Be Flowchart Preparation</h2>
+<div class="callout"><div class="callout-icon">🎯</div><div><strong>Purpose:</strong> Visualize the benchmark (ideal) process once all gaps are identified and solutioned.</div></div>
+<div class="callout"><div class="callout-icon">❓</div><div><strong>When:</strong> After the as-is flowchart and issue analysis are both ready.</div></div>
+<div class="callout"><div class="callout-icon">✅</div><div><strong>Done When:</strong> The to-be flowchart is completed and reviewed by the client.</div></div>
+<h3>Roles & Responsibilities</h3>
+<table class="raci-table"><tr><th>Execution</th><th>Review</th><th>Approval</th></tr><tr><td>Executive</td><td>Project Manager</td><td>Senior Manager</td></tr></table>
+<h3>Steps to Follow</h3>
+<ol class="steps">
+<li><div>Log in to Miro using the <span class="ilink" onclick="nav('credentials')">shared credentials →</span></div></li>
+<li><div>Use the resolved issue list and <span class="ilink" onclick="nav('prompts')">Flowchart Content Prompt (Prompt 4) →</span> in ChatGPT to generate to-be flowchart content.</div></li>
+<li><div>Build the to-be flowchart in Miro following the same template and style as the <span class="ilink" onclick="nav('phase2')">as-is flowchart in Task 2.1 →</span></div></li>
+<li><div>Submit for Project Manager review, then share with the client.</div></li>
+</ol>`},
+
+phase3:{icon:"3️⃣",label:"Phase 3: Report",parent:"sop_erp_diag",render:()=>`
+<div class="back-btn" onclick="nav('sop_erp_diag')">← ERP Diagnostics SOP</div>
+<div class="section-tag">Phase 3 · ERP Diagnostic</div>
+<div class="page-icon">3️⃣</div>
+<h1 class="page-title">Phase 3: Report Preparation</h1>
+
+<h2>Task 3.1 — Report Preparation</h2>
+<div class="callout"><div class="callout-icon">🎯</div><div><strong>Purpose:</strong> Prepare a comprehensive report documenting all issues and proposed solutions.</div></div>
+<div class="callout"><div class="callout-icon">❓</div><div><strong>When:</strong> Once issue analysis (<span class="ilink" onclick="nav('phase2')">Task 2.2 →</span>) is completed and reviewed by the Solution Architect.</div></div>
+<div class="callout"><div class="callout-icon">✅</div><div><strong>Done When:</strong> The report is approved by the Senior Manager / Vertical Head.</div></div>
+<h3>Roles & Responsibilities</h3>
+<table class="raci-table"><tr><th>Execution</th><th>Review</th><th>Approval</th></tr><tr><td>Executive, Project Manager</td><td>Senior Manager</td><td>Vertical Head</td></tr></table>
+<h3>Steps to Follow</h3>
+<ol class="steps">
+<li><div>Compile the finalized issue list and solutions from <span class="ilink" onclick="nav('phase2')">Task 2.2 →</span> into the report format.</div></li>
+<li><div>Ensure the report covers: as-is process, identified issues, to-be process, and recommended solutions.</div></li>
+<li><div>Submit draft to the Senior Manager and incorporate all feedback.</div></li>
+<li><div>Get final approval from the Vertical Head before sharing with the client.</div></li>
+</ol>`},
+
+templates:{icon:"📜",label:"Templates & References",parent:"hub",render:()=>`
+<div class="back-btn" onclick="nav('hub')">← Back</div>
+<div class="page-icon">📜</div>
+<h1 class="page-title">Templates & References</h1>
+<p>All templates in one place. Click any card to view the full template.</p>
+<div class="card-grid">
+  <div class="card" onclick="nav('kickoff_email')"><div class="card-icon">✉️</div><div class="card-title">Kick-off Email Templates</div><div class="card-sub">Subject line + full body for project kick-off.</div></div>
+  <div class="card" onclick="nav('project_plan_email')"><div class="card-icon">📋</div><div class="card-title">Project Plan Email</div><div class="card-sub">For sharing the project plan with the client.</div></div>
+  <div class="card" onclick="nav('cadence_slot_email')"><div class="card-icon">📅</div><div class="card-title">Cadence Slot Email</div><div class="card-sub">Confirming the weekly cadence meeting slot.</div></div>
+  <div class="card" onclick="nav('cadence_ppt_email')"><div class="card-icon">📊</div><div class="card-title">Cadence PPT Pre-Read Email</div><div class="card-sub">Send the day before the cadence meeting.</div></div>
+  <div class="card" onclick="nav('prompts')"><div class="card-icon">🤖</div><div class="card-title">AI Prompts</div><div class="card-sub">All ChatGPT & NotebookLM prompts for the project.</div></div>
+  <div class="card" onclick="nav('credentials')"><div class="card-icon">🔑</div><div class="card-title">Credentials</div><div class="card-sub">Miro and Gemini Pro login details.</div></div>
+  <div class="card" onclick="nav('laptop_checklist')"><div class="card-icon">💻</div><div class="card-title">Laptop Checklist</div><div class="card-sub">All tools to set up before starting work.</div></div>
+</div>`},
+
+kickoff_email:{icon:"✉️",label:"Kick-off Email Templates",parent:"templates",render:()=>`
+<div class="back-btn" onclick="nav('templates')">← Templates</div>
+<div class="page-icon">✉️</div>
+<h1 class="page-title">Kick-off Email Templates</h1>
+<p>Used in <span class="ilink" onclick="nav('phase0')">Task 0.1 — Start Kick-off Tasks →</span></p>
+<h2>Subject Line</h2>
+<div class="code-block">Project Kick-off  |  &lt;client&gt; &lt;&gt; Contetra  |  Process Diagnostic</div>
+<h2>Email Body</h2>
+<div class="code-block">Dear Team,
+
+I hope this email finds you well.
+
+This message is to formally kick off our Process Diagnostic project. The primary goal of this initiative is to thoroughly analyze our current workflows, identify opportunities for improvement, and collaboratively develop solutions to enhance efficiency and effectiveness.
+
+To ensure we align on the project's objectives, scope, and timeline, I would like to schedule a brief 30-minute kick-off call. The key items on our agenda will be:
+
+- Project Goals & Scope: A quick review of what we aim to achieve.
+- Methodology: How we will conduct the diagnostic.
+- Key Stakeholders & Roles: Clarifying everyone's involvement.
+- Basic Understanding about the business.
+- Timeline & Next Steps: Outlining the initial project plan.
+
+Could you please let me know your availability for a call? Please share a few time slots that work best for you.
+
+Till the meantime, can you please share the following documents with us:
+- Audited Financial Statement for the previous FY
+- Sample MIS of the last 3 months
+- View only access to the system
+
+The involvement of all stakeholders is important for the success of this project.
+We are looking forward to collaborating with all of you.
+
+Let us know in case of any queries.
+
+Best regards,</div>`},
+
+project_plan_email:{icon:"📋",label:"Project Plan Email",parent:"templates",render:()=>`
+<div class="back-btn" onclick="nav('templates')">← Templates</div>
+<div class="page-icon">📋</div>
+<h1 class="page-title">Project Plan Email</h1>
+<p>Used in <span class="ilink" onclick="nav('phase0')">Task 0.3 — Prepare Project Plan →</span></p>
+<div class="code-block">SUBJECT: Project Plan  |  &lt;client&gt; x Contetra  |  ERP Diagnostic
+
+Hello Team,
+
+Hope you are doing well.
+
+Please find attached the Project Plan for your review and reference.
+This document outlines the key phases, activities and timelines.
+
+We request you to review the timelines and scope and share your feedback or
+confirmation, particularly on milestones, timelines, and responsibilities,
+so we can proceed as per the agreed approach.
+
+Should you require any clarifications or adjustments, please feel free to let us know.
+
+Looking forward to your confirmation.
+
+Best regards,
+Contetra Team.</div>`},
+
+cadence_slot_email:{icon:"📅",label:"Cadence Slot Email",parent:"templates",render:()=>`
+<div class="back-btn" onclick="nav('templates')">← Templates</div>
+<div class="page-icon">📅</div>
+<h1 class="page-title">Cadence Slot Confirmation Email</h1>
+<p>Used in <span class="ilink" onclick="nav('phase0')">Task 0.4 — Prepare Cadence Deck →</span></p>
+<div class="code-block">SUBJECT: Confirm Cadence Slot | &lt;client&gt; x Contetra
+
+Hello Team,
+
+I hope this email finds you well.
+
+As we move forward with our project, we would like to schedule a regular weekly
+cadence meeting to ensure we stay aligned on progress, address any roadblocks,
+and plan upcoming milestones effectively.
+
+We suggest a 60-min check-in that aligns with your schedule. This regular
+touchpoint will help us:
+
+- Review weekly progress and updates
+- Discuss any challenges or concerns
+- Align on priorities for the upcoming week
+- Ensure smooth project execution
+
+Could you please share your preferred day and time for this weekly sync?
+
+Looking forward to hearing from you.
+
+Best regards,</div>`},
+
+cadence_ppt_email:{icon:"📊",label:"Cadence PPT Email",parent:"templates",render:()=>`
+<div class="back-btn" onclick="nav('templates')">← Templates</div>
+<div class="page-icon">📊</div>
+<h1 class="page-title">Cadence PPT Pre-Read Email</h1>
+<p>Used in <span class="ilink" onclick="nav('phase0')">Task 0.4 — Prepare Cadence Deck →</span></p>
+<div class="code-block">SUBJECT: Pre-read Cadence Deck - &lt;date&gt;  |  &lt;client&gt; x Contetra
+
+Hello Team,
+
+Tomorrow's cadence meeting is at [time, e.g., 10:00 AM IST] on
+&lt;Microsoft Teams / in-person&gt;.
+
+Please find the cadence deck attached for your pre-read before the meeting.
+
+Looking forward to our check-in.
+
+Regards,</div>`},
+
+prompts:{icon:"🤖",label:"AI Prompts",parent:"templates",render:()=>`
+<div class="back-btn" onclick="nav('templates')">← Templates</div>
+<div class="page-icon">🤖</div>
+<h1 class="page-title">AI Prompts</h1>
+<p>Use these exactly as written for consistent, high-quality outputs across all projects.</p>
+
+<h2>Prompt 1 — Questionnaire Generator (ChatGPT)</h2>
+<p>Used in <span class="ilink" onclick="nav('phase0')">Task 0.2 — Prepare Questionnaire →</span></p>
+<div class="code-block">Role: You are an expert business analyst and questionnaire designer specializing in enterprise operations, business models, and organizational structure analysis.
+
+Objective: Design a comprehensive, structured questionnaire (60–80 questions, 8 sections) to gather detailed information about a company's business model, operations, and market positioning.
+
+Sections to cover:
+1. Company Overview (10 Qs)
+2. Operations & Service Delivery (10 Qs)
+3. Revenue Model & Monetization (10 Qs)
+4. Business Model & Value Creation (10 Qs)
+5. Industry Context & Competitive Positioning (10 Qs)
+6. Scale & Size Metrics (8 Qs)
+7. Key Study Areas & Critical Factors (10 Qs)
+8. Recent Developments & Future Direction (8 Qs)
+
+Format: Mix of open-ended, multiple-choice, and rating scale questions.
+Tone: Professional, neutral, designed for C-suite / functional heads.
+Include 2–3 validation questions per section.
+
+Company/industry to focus on: [PASTE CLIENT DETAILS HERE]</div>
+
+<h2>Prompt 2 — Detailed Meeting Notes (NotebookLM)</h2>
+<p>Used in <span class="ilink" onclick="nav('phase1')">Task 1.4 — Write Meeting Minutes →</span></p>
+<div class="code-block">Give in detail notes from this meeting recording. Do not miss even the smallest detail.</div>
+
+<h2>Prompt 3 — Process Detail for Flowchart (NotebookLM)</h2>
+<p>Used in <span class="ilink" onclick="nav('phase2')">Task 2.1 — As-Is Flowchart Preparation →</span></p>
+<div class="code-block">Give in detail existing business process that was discussed in the meeting. Do not omit any detail, tell even the smallest detail discussed.</div>
+
+<h2>Prompt 4 — Flowchart Content (ChatGPT)</h2>
+<p>Used in <span class="ilink" onclick="nav('phase2')">Task 2.1 — As-Is Flowchart</span> and <span class="ilink" onclick="nav('phase2')">Task 2.3 — To-Be Flowchart →</span></p>
+<div class="code-block">As per the given process, please give me the content that, if I have to make a flowchart for the same.</div>
+
+<h2>Prompt 5 — Issue Extraction (NotebookLM)</h2>
+<p>Used in <span class="ilink" onclick="nav('phase2')">Task 2.2 — Issue Analysis and Solutioning →</span></p>
+<div class="code-block">Please list down all the issues that were discussed during the process understanding calls. Ensure that no issue is omitted. Even the smallest of the smallest issue discussed needs to be covered.</div>
+
+<h2>Prompt 6 — Issue Analysis Tabular Format (ChatGPT)</h2>
+<p>Used in <span class="ilink" onclick="nav('phase2')">Task 2.2 — Issue Analysis and Solutioning →</span> — paste below the issue list from NotebookLM.</p>
+<div class="code-block">INPUT VARIABLES:
+ISSUE_CONTENT: [Paste raw issue list from NotebookLM here]
+PROCESS_TYPE: [Optional — e.g., P2P, O2C, R2R, CRM, HR. Leave blank to auto-detect]
+PRIORITY_LEVEL: [Optional — High/Medium/Low. Leave blank to auto-assess]
+
+You are a business analyst specializing in process documentation and issue tracking. Transform the issue content into a structured tabular format:
+
+Columns:
+1. Sr — Sequential number starting from 1
+2. Process Type — Category abbreviation (P2P, O2C, R2R, CRM, HR, etc.)
+3. Priority — Severity level (High/Medium/Low)
+4. Reframed Problem Description — Core issue statement with context
+5. Expanded Business Impact — Quantifiable/observable consequences
+6. Comprehensive Solution Strategy — Actionable technical solution with specifics
+
+Output as tab-separated values (TSV) for direct paste into Excel.
+Keep descriptions 50–100 words per cell.</div>`},
+
+credentials:{icon:"🔑",label:"Credentials",parent:"templates",render:()=>`
+<div class="back-btn" onclick="nav('templates')">← Templates</div>
+<div class="page-icon">🔑</div>
+<h1 class="page-title">Credentials</h1>
+<div class="callout"><div class="callout-icon">⚠️</div><div><strong>Confidential.</strong> Do not share outside the team. Confirm with HR if any login fails.</div></div>
+<table class="raci-table"><thead><tr><th>Tool</th><th>Username / Email</th><th>Password</th></tr></thead><tbody>
+<tr><td><strong>Miro</strong></td><td>rushabh@altquad.com</td><td>90020133rd</td></tr>
+<tr><td><strong>Gemini Pro</strong></td><td>altquad@gmail.com</td><td>[Contact HR for password]</td></tr>
+</tbody></table>
+<p>Used in: <span class="ilink" onclick="nav('phase2')">Task 2.1 — As-Is Flowchart →</span> and <span class="ilink" onclick="nav('phase2')">Task 2.3 — To-Be Flowchart →</span></p>`},
+
+laptop_checklist:{icon:"💻",label:"Laptop Checklist",parent:"hub",render:()=>`
+<div class="back-btn" onclick="nav('hub')">← Back</div>
+<div class="page-icon">💻</div>
+<h1 class="page-title">Laptop & Tools Setup Checklist</h1>
+<p>Complete all items below before starting any project work. Contact the listed SPOC for issues via call or Zoho Cliq.</p>
+<table class="raci-table"><thead><tr><th>Task</th><th>Inputs Required</th><th>SPOC</th></tr></thead><tbody>
+${[["Get Zoho Mail ID created","—","Falguni Bhanushali (HR)"],["Install Zoho Cliq","Zoho Credentials","Falguni Bhanushali (HR)"],["Install Zoho Mail","Zoho Credentials","Falguni Bhanushali (HR)"],["Install Workdrive","Zoho Credentials","Falguni Bhanushali (HR)"],["Get Contetra ID created","—","Falguni Bhanushali (HR)"],["Install Microsoft Teams","Contetra ID credentials","Falguni Bhanushali (HR)"],["Install Outlook","Contetra ID credentials","Falguni Bhanushali (HR)"],["Install & Log in to Miro","See Credentials","Falguni Bhanushali (HR)"],["Gemini Pro Login","See Credentials","Falguni Bhanushali (HR)"]].map(([t,i,s])=>`<tr><td>${t}</td><td>${i==="See Credentials"?`<span class="ilink" onclick="nav('credentials')">See Credentials →</span>`:i}</td><td>${s}</td></tr>`).join("")}
+</tbody></table>`}
+};
+
+const tree=[{id:"hub",ch:[{id:"welcome"},{id:"about"},{id:"in_detail"},{id:"sop_library",ch:[{id:"sop_erp_diag",ch:[{id:"phase0"},{id:"phase1"},{id:"phase2"},{id:"phase3"}]}]},{id:"templates",ch:[{id:"kickoff_email"},{id:"project_plan_email"},{id:"cadence_slot_email"},{id:"cadence_ppt_email"},{id:"prompts"},{id:"credentials"}]},{id:"laptop_checklist"}]}];
+let open=new Set(["hub","sop_library","templates"]);
+let cur="hub";
+
+function findNode(id,nodes){for(const n of nodes){if(n.id===id)return n;if(n.ch){const f=findNode(id,n.ch);if(f)return f;}}return null;}
+
+function renderTree(nodes,d=0){
+  return nodes.map(n=>{
+    const p=pages[n.id];if(!p)return"";
+    const hasC=n.ch&&n.ch.length>0;
+    const isO=open.has(n.id);
+    const cls="nav-item"+(d===1?" d1":d===2?" d2":d===3?" d3":"")+(n.id===cur?" active":"");
+    let h=`<div class="${cls}" data-id="${n.id}" onclick="handleClick('${n.id}',event)">`;
+    h+=hasC?`<div class="nav-toggle${isO?" open":""}">▶</div>`:`<div style="width:16px;flex-shrink:0"></div>`;
+    h+=`<div class="nav-emoji">${p.icon}</div><div class="nav-label">${p.label}</div></div>`;
+    if(hasC)h+=`<div class="nav-children${isO?" open":""}">${renderTree(n.ch,d+1)}</div>`;
+    return h;
+  }).join("");
+}
+
+function handleClick(id,e){
+  const n=findNode(id,tree);
+  if(n&&n.ch){open.has(id)?open.delete(id):open.add(id);}
+  nav(id);
+}
+
+function nav(id){
+  if(!pages[id])return;
+  cur=id;open.add(id);
+  let pid=pages[id].parent;
+  while(pid){open.add(pid);pid=pages[pid]?pages[pid].parent:null;}
+  document.getElementById("navTree").innerHTML=renderTree(tree);
+  document.getElementById("content").innerHTML=pages[id].render();
+  document.getElementById("content").parentElement.scrollTop=0;
+  const crumbs=[];let c=id;
+  while(c){crumbs.unshift(c);c=pages[c]?pages[c].parent:null;}
+  document.getElementById("breadcrumb").innerHTML=crumbs.map((c,i)=>
+    i===crumbs.length-1?`<span class="bc-cur">${pages[c].label}</span>`
+    :`<span class="bc-link" onclick="nav('${c}')">${pages[c].label}</span><span class="bc-sep"> / </span>`
+  ).join("");
+}
+
+nav("hub");
+
+function toggleTheme(){
+  const r=document.documentElement;
+  const isLight=r.classList.contains('light');
+  r.classList.toggle('light');
+  document.getElementById('themeBtn').textContent=isLight?'🌙':'☀️';
+}
+</script>
+</body>
+</html>
