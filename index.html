@@ -3048,20 +3048,21 @@ function doSearch(q){
     res.innerHTML='<div class="search-empty">No results for "'+q+'"</div>';
     return;
   }
-  res.innerHTML=matches.slice(0,15).map((m,i)=>`
-    <div class="search-result-item" onclick="searchNav('${m.id}')" data-idx="${i}">
-      <div class="sr-icon">${pages[m.id]?pages[m.id].icon:''}</div>
-      <div class="sr-content">
-        <div class="sr-label">${highlight(m.label,q)}</div>
-        <div class="sr-path">${m.path}</div>
-        ${m.snippet?`<div class="sr-match">${highlight(m.snippet,q)}</div>`:''}
-      </div>
-    </div>`).join('');
+  res.innerHTML=matches.slice(0,15).map((m,i)=>{
+  const snippetHtml=m.snippet?'<div class="sr-match">'+highlight(m.snippet,q)+'</div>':'';
+  return '<div class="search-result-item" onclick="searchNav(\''+m.id+'\')" data-idx="'+i+'">'
+    +'<div class="sr-icon">'+(pages[m.id]?pages[m.id].icon:'')+'</div>'
+    +'<div class="sr-content">'
+    +'<div class="sr-label">'+highlight(m.label,q)+'</div>'
+    +'<div class="sr-path">'+m.path+'</div>'
+    +snippetHtml
+    +'</div></div>';
+}).join('');;
 }
 
 function searchNav(id){
   closeSearch();
-  nav(id);
+  setTimeout(()=>nav(id), 50);
 }
 
 // Keyboard shortcuts
@@ -3111,88 +3112,6 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape'&&document.getElementById('searchOverlay').style.display!=='none'){closeSearch();}
 });
 
-function buildSearchIndex(){
-  const idx=[];
-  Object.entries(pages).forEach(([id,p])=>{
-    if(!p.render)return;
-    // Get plain text from render
-    const html=p.render();
-    const text=html.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
-    idx.push({id,label:p.label,icon:p.icon,text:text.toLowerCase(),parent:p.parent});
-  });
-  return idx;
-}
-
-let _searchIndex=null;
-function getSearchIndex(){
-  if(!_searchIndex)_searchIndex=buildSearchIndex();
-  return _searchIndex;
-}
-
-function doSearch(q){
-  const res=document.getElementById('searchResults');
-  const idx=getSearchIndex();
-  searchIdx=-1;
-  q=q.trim().toLowerCase();
-  
-  let matches;
-  if(!q){
-    // Show all top-level pages when empty
-    matches=idx.filter(p=>!p.parent||p.parent==='hub'||p.parent==='sop_library'||p.parent==='templates').slice(0,12);
-  } else {
-    matches=idx.filter(p=>{
-      return p.label.toLowerCase().includes(q)||p.text.includes(q);
-    }).slice(0,15);
-  }
-
-  if(!matches.length){
-    res.innerHTML='<div style="padding:20px;text-align:center;color:var(--text-tertiary);font-size:13px">No results found</div>';
-    return;
-  }
-
-  res.innerHTML=matches.map((m,i)=>{
-    const parentLabel=m.parent&&pages[m.parent]?` <span style="color:var(--text-tertiary)">· ${pages[m.parent].label}</span>`:'';
-    // Highlight match in label
-    let label=m.label;
-    if(q){
-      const qi=label.toLowerCase().indexOf(q);
-      if(qi>=0)label=label.slice(0,qi)+'<mark style="background:rgba(255,200,0,0.3);border-radius:2px">'+label.slice(qi,qi+q.length)+'</mark>'+label.slice(qi+q.length);
-    }
-    return '<div class="sr-item" data-id="'+m.id+'" onclick="searchNav(\"'+m.id+'\")" style="display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;font-size:13px;transition:background 0.1s" onmouseenter="setSearchIdx('+i+')">'
-      +'<span style="font-size:16px;flex-shrink:0">'+m.icon+'</span>'
-      +'<span style="flex:1">'+label+parentLabel+'</span>'
-      +'<span style="color:var(--text-tertiary);font-size:11px">→</span>'
-      +'</div>';
-  }).join('');
-}
-
-function setSearchIdx(i){
-  searchIdx=i;
-  highlightSearchResult();
-}
-
-function highlightSearchResult(){
-  document.querySelectorAll('.sr-item').forEach((el,i)=>{
-    el.style.background=i===searchIdx?'var(--bg-tertiary)':'';
-  });
-}
-
-function searchKeydown(e){
-  const items=document.querySelectorAll('.sr-item');
-  if(e.key==='ArrowDown'){e.preventDefault();searchIdx=Math.min(searchIdx+1,items.length-1);highlightSearchResult();}
-  else if(e.key==='ArrowUp'){e.preventDefault();searchIdx=Math.max(searchIdx-1,0);highlightSearchResult();}
-  else if(e.key==='Enter'){
-    if(searchIdx>=0&&items[searchIdx]){
-      const id=items[searchIdx].dataset.id;
-      searchNav(id);
-    }
-  }
-}
-
-function searchNav(id){
-  closeSearch();
-  nav(id);
-}
 
 </script>
 </body>
