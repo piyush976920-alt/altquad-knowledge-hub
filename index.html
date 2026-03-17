@@ -125,6 +125,12 @@ mark{background:rgba(255,200,0,0.35);color:inherit;border-radius:2px;padding:0 1
 .search-empty{padding:32px 16px;text-align:center;color:var(--text-tertiary);font-size:13px}
 .search-shortcut{padding:8px 16px;font-size:11px;color:var(--text-tertiary);border-top:1px solid var(--border-light);display:flex;gap:16px}
 .search-shortcut kbd{background:var(--bg-secondary);border:1px solid var(--border-mid);border-radius:3px;padding:1px 5px;font-family:inherit;font-size:10px}
+
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-mid);border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:var(--text-tertiary)}
+*{scrollbar-width:thin;scrollbar-color:var(--border-mid) transparent}
 </style>
 </head>
 <body>
@@ -199,7 +205,7 @@ hub:{icon:"🏠",label:"Process Vertical Hub",parent:null,render:()=>`
   <div class="card" onclick="nav('lms')"><div class="card-icon">🎓</div><div class="card-title">Learning & Development</div><div class="card-sub">Recorded learning sessions — ERP, finance processes, and domain knowledge.</div><div class="badge badge-green">LIVE</div></div>
 </div>
 <div class="divider"></div>
-<p style="font-size:12px;color:var(--text-tertiary)">💡 Press Ctrl+F to search this page &nbsp;·&nbsp; Managed by Piyush Kothari, AltQuad Global LLP</p>`},
+<p style="font-size:12px;color:var(--text-tertiary)">💡 Press Ctrl+F to search this page &nbsp;·&nbsp; Managed by Piyush Kothari, AltQuad Global LLP</p><div style="height:60px"></div>`},
 
 welcome:{icon:"👋",label:"Welcome to AltQuad!",parent:"hub",render:()=>`
 <div class="back-btn" onclick="nav('hub')">← Back</div>
