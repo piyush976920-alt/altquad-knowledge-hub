@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!
+DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -230,75 +231,39 @@ hub:{icon:"🏠",label:"Process Vertical Hub",parent:null,render:()=>`
 <div class="path-grid">
 
   <div class="path-card" onclick="nav('welcome')">
-    <div class="path-card-btn">Click here to Start Onboarding</div>
-    <div class="path-card-icon">🆕</div>
-    <div class="path-card-title">New to AQ? Start Onboarding</div>
-    <div class="path-card-sub">A guided onboarding path so you can start working confidently without chasing people for basic info.</div>
+    <div class="path-card-btn">🏠 Start here — new joiners</div>
+    <div class="path-card-icon">👋</div>
+    <div class="path-card-title">Induction & Onboarding</div>
+    <div class="path-card-sub">About AltQuad, our role, ground rules, laptop setup and onboarding path.</div>
     <div class="path-badge-live">LIVE</div>
     <div class="path-card-audience"><strong>Audience:</strong> New joiners</div>
   </div>
 
-  <div class="path-card" onclick="nav('lms')">
-    <div class="path-card-btn">Click here to go to LMS</div>
-    <div class="path-card-icon">🎓</div>
-    <div class="path-card-title">Learning Management System</div>
-    <div class="path-card-sub">A structured learning path curated by our founders — for new joiners and per project.</div>
+  <div class="path-card" onclick="nav('concepts')">
+    <div class="path-card-btn">🧠 Build your knowledge</div>
+    <div class="path-card-icon">🧩</div>
+    <div class="path-card-title">Learn the Concepts & L&D</div>
+    <div class="path-card-sub">GL, COA, GST, BRD, R&R, Reports, MRP and structured learning sessions.</div>
     <div class="path-badge-live">LIVE</div>
-    <div class="path-card-audience"><strong>Audience:</strong> Curious people</div>
-  </div>
-
-  <div class="path-card" onclick="nav('sop_library')">
-    <div class="path-card-btn">Click here to go to SOPs</div>
-    <div class="path-card-icon">👨‍🏫</div>
-    <div class="path-card-title">SOP Library</div>
-    <div class="path-card-sub">Step-by-step SOPs for delivering work consistently, with clear inputs/outputs and templates.</div>
-    <div class="path-badge-live">LIVE</div>
-    <div class="path-card-audience"><strong>Audience:</strong> Anyone with queries</div>
-  </div>
-
-  <div class="path-card" onclick="nav('templates')">
-    <div class="path-card-btn">Click here to go to Templates</div>
-    <div class="path-card-icon">📜</div>
-    <div class="path-card-title">Templates &amp; References</div>
-    <div class="path-card-sub">A single place to get copy-ready templates and gold-standard examples for inspiration.</div>
-    <div class="path-badge-live">LIVE</div>
-    <div class="path-card-audience"><strong>Audience:</strong> Anyone with queries</div>
+    <div class="path-card-audience"><strong>Audience:</strong> Everyone</div>
   </div>
 
   <div class="path-card" onclick="nav('pre_project')">
-    <div class="path-card-btn">Click here before every project</div>
-    <div class="path-card-icon">🚀</div>
-    <div class="path-card-title">Pre-Project Initiation</div>
-    <div class="path-card-sub">Budgeted hours, scope clarity, billing milestones, PMO tool setup — before any project kicks off.</div>
+    <div class="path-card-btn">🚀 Before & during every project</div>
+    <div class="path-card-icon">⚙️</div>
+    <div class="path-card-title">Run a Project</div>
+    <div class="path-card-sub">Pre-initiation checklist, all SOPs and templates — everything to deliver a project.</div>
     <div class="path-badge-live">LIVE</div>
     <div class="path-card-audience"><strong>Audience:</strong> PMs & Executives</div>
-  </div>
-
-  <div class="path-card" onclick="nav('our_role')">
-    <div class="path-card-btn">Must read for every team member</div>
-    <div class="path-card-icon">🎯</div>
-    <div class="path-card-title">Our Role & Why Clients Pay Us</div>
-    <div class="path-card-sub">What we do, why it matters, and how we're different from a technical partner.</div>
-    <div class="path-badge-live">LIVE</div>
-    <div class="path-card-audience"><strong>Audience:</strong> Every team member</div>
   </div>
 
   <div class="path-card" onclick="nav('project_closure')">
-    <div class="path-card-btn">Read before closing any project</div>
+    <div class="path-card-btn">🔒 Before marking any project done</div>
     <div class="path-card-icon">🔒</div>
-    <div class="path-card-title">Project Closure & Timesheets</div>
-    <div class="path-card-sub">How to log timesheets, run a retrospective, and formally close a project.</div>
+    <div class="path-card-title">Close a Project</div>
+    <div class="path-card-sub">Timesheets, retrospective, closure report and filing — nothing is done until this is done.</div>
     <div class="path-badge-live">LIVE</div>
     <div class="path-card-audience"><strong>Audience:</strong> PMs & Executives</div>
-  </div>
-
-  <div class="path-card" onclick="nav('concepts')">
-    <div class="path-card-btn">Click here to open Concepts</div>
-    <div class="path-card-icon">🧠</div>
-    <div class="path-card-title">Important Concepts</div>
-    <div class="path-card-sub">GL & Sub-GL, Migration, Enterprise Structure, GST, Unbilled Revenue, MRP and more.</div>
-    <div class="path-badge-live">LIVE</div>
-    <div class="path-card-audience"><strong>Audience:</strong> Everyone</div>
   </div>
 
 </div>
@@ -4447,8 +4412,7 @@ ${[["Get Zoho Mail ID created","—","Falguni Bhanushali (HR)"],["Install Zoho C
 </tbody></table>`}
 };
 
-const tree=[{id:"hub",ch:[{id:"ground_rules"},{id:"laptop_checklist"},{id:"foldering"},{id:"pre_project"},{id:"our_role"},{id:"project_closure"},{id:"welcome"},{id:"about"},{id:"sop_library",ch:[{id:"erp_impl",ch:[{id:"erp_impl_phase0"},{id:"erp_impl_phase1"},{id:"erp_impl_phase2"},{id:"erp_impl_phase3"},{id:"erp_impl_phase4"},{id:"erp_impl_phase5"},{id:"erp_impl_phase6"},{id:"erp_impl_phase7"}]},{id:"automation",ch:[{id:"auto_phase0"},{id:"auto_phase1"},{id:"auto_phase2"},{id:"auto_phase3"},{id:"auto_phase4"},{id:"auto_phase5"}]},{id:"master_data",ch:[{id:"mdc_phase0"},{id:"mdc_phase1"},{id:"mdc_phase2"},{id:"mdc_phase3"},{id:"mdc_customer"},{id:"mdc_vendor"},{id:"mdc_item"},{id:"mdc_coa"},{id:"mdc_employee"},{id:"mdc_other"}]},{id:"sop_prep",ch:[{id:"sop_prep_phase0"},{id:"sop_prep_phase1"},{id:"sop_prep_phase2"},{id:"sop_prep_phase3"},{id:"sop_prep_phase4"}]},{id:"sop_erp_diag",ch:[{id:"phase0"},{id:"phase1",ch:[{id:"understanding_prep"}]},{id:"phase2"},{id:"phase3"},{id:"approach"}]}]},{id:"templates",ch:[{id:"kickoff_email"},{id:"project_plan_email"},{id:"cadence_slot_email"},{id:"cadence_ppt_email"},{id:"cadence_format"},{id:"prompts"},{id:"credentials"}]},{id:"lms"},{id:"concepts",ch:[{id:"concept_gl"},{id:"concept_enterprise"},{id:"concept_migration"},{id:"concept_coa"},{id:"concept_special_gl"},{id:"concept_revenue"},{id:"concept_gst"},{id:"concept_crp_uat"},{id:"concept_mrp"},{id:"concept_production"},{id:"concept_invoice"},{id:"concept_scenarios"},{id:"concept_rr"},{id:"concept_brd"},{id:"concept_reports"}]}]}];
-let open=new Set(["hub","sop_library","templates"]);
+const tree=[{id:"hub",ch:[{id:"welcome"},{id:"about"},{id:"our_role"},{id:"ground_rules"},{id:"laptop_checklist"},{id:"foldering"},{id:"concepts",ch:[{id:"concept_gl"},{id:"concept_enterprise"},{id:"concept_migration"},{id:"concept_coa"},{id:"concept_special_gl"},{id:"concept_revenue"},{id:"concept_gst"},{id:"concept_crp_uat"},{id:"concept_mrp"},{id:"concept_production"},{id:"concept_invoice"},{id:"concept_roles"},{id:"concept_scenarios"},{id:"concept_rr"},{id:"concept_brd"},{id:"concept_reports"}]},{id:"lms"},{id:"pre_project"},{id:"sop_library",ch:[{id:"erp_impl",ch:[{id:"erp_impl_phase0"},{id:"erp_impl_phase1"},{id:"erp_impl_phase2"},{id:"erp_impl_phase3"},{id:"erp_impl_phase4"},{id:"erp_impl_phase5"},{id:"erp_impl_phase6"},{id:"erp_impl_phase7"}]},{id:"automation",ch:[{id:"auto_phase0"},{id:"auto_phase1"},{id:"auto_phase2"},{id:"auto_phase3"},{id:"auto_phase4"},{id:"auto_phase5"}]},{id:"master_data",ch:[{id:"mdc_phase0"},{id:"mdc_phase1"},{id:"mdc_phase2"},{id:"mdc_phase3"},{id:"mdc_customer"},{id:"mdc_vendor"},{id:"mdc_item"},{id:"mdc_coa"},{id:"mdc_employee"},{id:"mdc_other"}]},{id:"sop_prep",ch:[{id:"sop_prep_phase0"},{id:"sop_prep_phase1"},{id:"sop_prep_phase2"},{id:"sop_prep_phase3"},{id:"sop_prep_phase4"}]},{id:"sop_erp_diag",ch:[{id:"phase0"},{id:"phase1",ch:[{id:"understanding_prep"}]},{id:"phase2"},{id:"phase3"},{id:"approach"}]}]},{id:"templates",ch:[{id:"kickoff_email"},{id:"project_plan_email"},{id:"cadence_slot_email"},{id:"cadence_ppt_email"},{id:"cadence_format"},{id:"prompts"},{id:"credentials"}]},{id:"project_closure"}]}];let open=new Set(["hub","sop_library","templates"]);
 let cur="hub";
 
 function findNode(id,nodes){for(const n of nodes){if(n.id===id)return n;if(n.ch){const f=findNode(id,n.ch);if(f)return f;}}return null;}
