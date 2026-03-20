@@ -1,5 +1,4 @@
-<!
-DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -231,39 +230,75 @@ hub:{icon:"🏠",label:"Process Vertical Hub",parent:null,render:()=>`
 <div class="path-grid">
 
   <div class="path-card" onclick="nav('welcome')">
-    <div class="path-card-btn">🏠 Start here — new joiners</div>
-    <div class="path-card-icon">👋</div>
-    <div class="path-card-title">Induction & Onboarding</div>
-    <div class="path-card-sub">About AltQuad, our role, ground rules, laptop setup and onboarding path.</div>
+    <div class="path-card-btn">Click here to Start Onboarding</div>
+    <div class="path-card-icon">🆕</div>
+    <div class="path-card-title">New to AQ? Start Onboarding</div>
+    <div class="path-card-sub">A guided onboarding path so you can start working confidently without chasing people for basic info.</div>
     <div class="path-badge-live">LIVE</div>
     <div class="path-card-audience"><strong>Audience:</strong> New joiners</div>
   </div>
 
-  <div class="path-card" onclick="nav('concepts')">
-    <div class="path-card-btn">🧠 Build your knowledge</div>
-    <div class="path-card-icon">🧩</div>
-    <div class="path-card-title">Learn the Concepts & L&D</div>
-    <div class="path-card-sub">GL, COA, GST, BRD, R&R, Reports, MRP and structured learning sessions.</div>
+  <div class="path-card" onclick="nav('lms')">
+    <div class="path-card-btn">Click here to go to LMS</div>
+    <div class="path-card-icon">🎓</div>
+    <div class="path-card-title">Learning Management System</div>
+    <div class="path-card-sub">A structured learning path curated by our founders — for new joiners and per project.</div>
     <div class="path-badge-live">LIVE</div>
-    <div class="path-card-audience"><strong>Audience:</strong> Everyone</div>
+    <div class="path-card-audience"><strong>Audience:</strong> Curious people</div>
+  </div>
+
+  <div class="path-card" onclick="nav('sop_library')">
+    <div class="path-card-btn">Click here to go to SOPs</div>
+    <div class="path-card-icon">👨‍🏫</div>
+    <div class="path-card-title">SOP Library</div>
+    <div class="path-card-sub">Step-by-step SOPs for delivering work consistently, with clear inputs/outputs and templates.</div>
+    <div class="path-badge-live">LIVE</div>
+    <div class="path-card-audience"><strong>Audience:</strong> Anyone with queries</div>
+  </div>
+
+  <div class="path-card" onclick="nav('templates')">
+    <div class="path-card-btn">Click here to go to Templates</div>
+    <div class="path-card-icon">📜</div>
+    <div class="path-card-title">Templates &amp; References</div>
+    <div class="path-card-sub">A single place to get copy-ready templates and gold-standard examples for inspiration.</div>
+    <div class="path-badge-live">LIVE</div>
+    <div class="path-card-audience"><strong>Audience:</strong> Anyone with queries</div>
   </div>
 
   <div class="path-card" onclick="nav('pre_project')">
-    <div class="path-card-btn">🚀 Before & during every project</div>
-    <div class="path-card-icon">⚙️</div>
-    <div class="path-card-title">Run a Project</div>
-    <div class="path-card-sub">Pre-initiation checklist, all SOPs and templates — everything to deliver a project.</div>
+    <div class="path-card-btn">Click here before every project</div>
+    <div class="path-card-icon">🚀</div>
+    <div class="path-card-title">Pre-Project Initiation</div>
+    <div class="path-card-sub">Budgeted hours, scope clarity, billing milestones, PMO tool setup — before any project kicks off.</div>
     <div class="path-badge-live">LIVE</div>
     <div class="path-card-audience"><strong>Audience:</strong> PMs & Executives</div>
   </div>
 
+  <div class="path-card" onclick="nav('our_role')">
+    <div class="path-card-btn">Must read for every team member</div>
+    <div class="path-card-icon">🎯</div>
+    <div class="path-card-title">Our Role & Why Clients Pay Us</div>
+    <div class="path-card-sub">What we do, why it matters, and how we're different from a technical partner.</div>
+    <div class="path-badge-live">LIVE</div>
+    <div class="path-card-audience"><strong>Audience:</strong> Every team member</div>
+  </div>
+
   <div class="path-card" onclick="nav('project_closure')">
-    <div class="path-card-btn">🔒 Before marking any project done</div>
+    <div class="path-card-btn">Read before closing any project</div>
     <div class="path-card-icon">🔒</div>
-    <div class="path-card-title">Close a Project</div>
-    <div class="path-card-sub">Timesheets, retrospective, closure report and filing — nothing is done until this is done.</div>
+    <div class="path-card-title">Project Closure & Timesheets</div>
+    <div class="path-card-sub">How to log timesheets, run a retrospective, and formally close a project.</div>
     <div class="path-badge-live">LIVE</div>
     <div class="path-card-audience"><strong>Audience:</strong> PMs & Executives</div>
+  </div>
+
+  <div class="path-card" onclick="nav('concepts')">
+    <div class="path-card-btn">Click here to open Concepts</div>
+    <div class="path-card-icon">🧠</div>
+    <div class="path-card-title">Important Concepts</div>
+    <div class="path-card-sub">GL & Sub-GL, Migration, Enterprise Structure, GST, Unbilled Revenue, MRP and more.</div>
+    <div class="path-badge-live">LIVE</div>
+    <div class="path-card-audience"><strong>Audience:</strong> Everyone</div>
   </div>
 
 </div>
@@ -296,8 +331,8 @@ about:{icon:"🏢",label:"About AltQuad Global LLP",parent:"hub",render:()=>`
 
 <h2>Meet Our Founders</h2>
 <div class="card-grid">
-  <div class="card"><div class="card-icon">👤</div><div class="card-title">CA Rushabh Deliwala</div><div class="card-sub">Co-founder, Head — Process Vertical<br><br>Chartered Accountant · 10+ years industry experience</div></div>
-  <div class="card"><div class="card-icon">👤</div><div class="card-title">CA Hansal Bavishi</div><div class="card-sub">Co-founder, Head — KPO Vertical<br><br>CA · CFA L2 Cleared · 10+ years industry experience</div></div>
+  <div class="card" style="text-align:center"><img src="data:image/jpeg;base64,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" alt="CA Rushabh Deliwala" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:10px;border:3px solid var(--accent)"><div class="card-title">CA Rushabh Deliwala</div><div class="card-sub">Co-founder, Head — Process Vertical<br><br>Chartered Accountant · 10+ years industry experience</div></div>
+  <div class="card" style="text-align:center"><img src="data:image/jpeg;base64,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" alt="CA Hansal Bavishi" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:10px;border:3px solid var(--accent)"><div class="card-title">CA Hansal Bavishi</div><div class="card-sub">Co-founder, Head — KPO Vertical<br><br>CA · CFA L2 Cleared · 10+ years industry experience</div></div>
 </div>
 
 <h2>Two Verticals, One Mission</h2>
@@ -569,6 +604,7 @@ phase0:{icon:"0️⃣",label:"Phase 0: Kick-off",parent:"sop_erp_diag",render:()
 
 phase1:{icon:"1️⃣",label:"Phase 1: Process Understanding",parent:"sop_erp_diag",render:()=>`
 <div class="back-btn" onclick="nav('sop_erp_diag')">← ERP Diagnostics SOP</div>
+<div class="callout" style="margin-top:12px"><div class="callout-icon">📋</div><div>Before every process understanding call, complete the <strong>Pre-call Preparation checklist</strong>. <span class="ilink" onclick="nav('concept_precall')">Open Pre-call Preparation →</span></div></div>
 <div class="section-tag">Phase 1 · ERP Diagnostic</div>
 <div class="page-icon">1️⃣</div>
 <h1 class="page-title">Phase 1: Process Understanding</h1>
@@ -1044,61 +1080,8 @@ foldering:{icon:"📁",label:"Foldering Structure",parent:"hub",render:()=>`
 <tr><td></td><td></td><td>Any other working file</td><td>File name should explain the content</td></tr>
 </tbody></table>`},
 
-understanding_prep:{icon:"📋",label:"Pre-call Preparation",parent:"phase1",render:()=>`
-<div class="back-btn" onclick="nav('phase1')">← Phase 1</div>
-<div class="page-icon">📋</div>
-<h1 class="page-title">Pre-call Preparation Checklist</h1>
-<div class="page-desc">Complete all items below before beginning process understanding calls on any project.</div>
 
-<h2>A — Internal Kick-off Checklist</h2>
-<p>Before any client call, ensure the team has aligned on:</p>
-<ol class="steps">
-<li><div>Understanding of the scope (from internal kick-off call)</div></li>
-<li><div>Basic understanding of the client's business</div></li>
-<li><div>Expectations on project timelines</div></li>
-<li><div>Required team members and budgeted hours</div></li>
-<li><div>Billing milestones agreed internally</div></li>
-<li><div>Technical partner details, if any</div></li>
-<li><div>Client SPOCs identified and noted</div></li>
-</ol>
 
-<div class="divider"></div>
-<h2>B — Business Understanding (Gemini Prompt)</h2>
-<p>Run this prompt in Gemini Deep Research before the first client call. Save the output as a Word file named <code>Business Understanding</code>.</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>You are an expert business analyst. Analyze and explain the business model and operations of the following company:
-
-Company Name: [Insert company name]
-
-Cover these key aspects:
-
-1. Overview: Basic details (founding year, HQ, ownership), industry, and main markets.
-2. Operations: Core business areas, products/services, and target customer segments.
-3. Revenue Model: Primary income sources and how the company monetizes its offerings.
-4. Business Model: How the company creates and delivers value; value chain or operating model.
-5. Industry Context: Main competitors, differentiators, and market positioning.
-6. Scale: Size of operations (revenue, employee base, regions covered, major subsidiaries).
-7. Key Study Areas: Critical aspects to analyze further (financials, market share, technology, supply chain, or risks).
-8. Recent Developments: Notable updates like acquisitions, leadership changes, or strategic initiatives.
-
-Present your analysis in a clear, structured, and insight-focused format.</div>
-
-<div class="divider"></div>
-<h2>C — Process Understanding (Gemini Prompt)</h2>
-<p>Run this prompt in Gemini Deep Research for each process area. Save output as <code>Process Understanding</code>. This becomes the base for your to-be flowcharts.</p>
-<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Explain in detail the ideal end-to-end business processes followed in the [industry name] industry — covering key functions such as operations, sales, finance, HR, procurement, and customer service. Describe how these processes interlink to deliver business outcomes efficiently.
-
-Then, outline the ideal organizational and team structure for a company in this industry, including key departments, leadership roles, reporting hierarchy, and approximate team size for small, medium, and large-scale businesses.
-
-Highlight best practices, efficiency enablers, and modern tools or technologies commonly used in this industry.</div>
-<p style="font-size:12px;color:var(--text-tertiary)">Note: Solutions should always be grounded in practical client realities, not just the ideal benchmark.</p>
-
-<div class="divider"></div>
-<h2>D — Questionnaire</h2>
-<p>Get the list of questions to ask before jumping into the call for those specific processes. Use the <span class="ilink" onclick="nav('prompts')">Questionnaire Prompt →</span></p>
-
-<div class="divider"></div>
-<h2>E — Industry Matrix</h2>
-<p>Use Gemini to research how the ideal business in that industry works and what the important metrics are. This research becomes part of the final diagnostic report.</p>`},
 
 cadence_format:{icon:"📊",label:"Cadence Deck Format",parent:"templates",render:()=>`
 <div class="back-btn" onclick="nav('templates')">← Templates</div>
@@ -3360,7 +3343,8 @@ concepts:{icon:"🧠",label:"Important Concepts",parent:"hub",render:()=>`
   <div class="card" onclick="nav('concept_scenarios')"><div class="card-icon">📋</div><div class="card-title">Scenario Listing</div><div class="card-sub">How to build a real-world UAT test case library from the client's Trial Balance.</div></div>
   <div class="card" onclick="nav('concept_rr')"><div class="card-icon">👔</div><div class="card-title">Roles & Responsibility</div><div class="card-sub">How to prepare an R&R document for clients + ERP roles & authorisations setup.</div></div>
   <div class="card" onclick="nav('concept_brd')"><div class="card-icon">📝</div><div class="card-title">BRD — How to Prepare It</div><div class="card-sub">Full guide to preparing a Business Requirement Document with a real NuSummit project BRD as reference.</div></div>
-  <div class="card" onclick="nav('concept_reports')"><div class="card-icon">📊</div><div class="card-title">Reports</div><div class="card-sub">How to prepare a Reports List deliverable for clients — structure, fields, and UAT testing.</div></div>
+  <div class="card" onclick="nav('concept_reports')"><div class="card-icon">📊</div><div class="card-title">Reports</div>
+  <div class="card" onclick="nav('concept_precall')"><div class="card-icon">📋</div><div class="card-title">Pre-call Preparation</div><div class="card-sub">What to prepare before every process understanding call.</div></div><div class="card-sub">How to prepare a Reports List deliverable for clients — structure, fields, and UAT testing.</div></div>
 </div>`},
 
 concept_gl:{icon:"📒",label:"GL & Sub-GL",parent:"concepts",render:()=>`
@@ -4402,6 +4386,63 @@ The expected benefits are: [1] improved operational efficiency through standardi
 <li><div><strong>Frozen on sign-off — everything after is a Change Request.</strong> Communicate this explicitly when obtaining sign-off. The client must understand that a signed BRD is a binding document.</div></li>
 </ol>`},
 
+concept_precall:{icon:"📋",label:"Pre-call Preparation",parent:"concepts",render:()=>`
+<div class="back-btn" onclick="nav('concepts')">← Important Concepts</div>
+<div class="page-icon">📋</div>
+<h1 class="page-title">Pre-call Preparation</h1>
+<div class="page-desc">Complete all items below before beginning any process understanding call — whether for ERP Implementation, Automation, or Diagnostic projects. Thorough preparation is the difference between a productive 60-minute call and a second call to cover what the first one missed.</div>
+<div class="page-desc">Complete all items below before beginning process understanding calls on any project.</div>
+
+<h2>A — Internal Kick-off Checklist</h2>
+<p>Before any client call, ensure the team has aligned on:</p>
+<ol class="steps">
+<li><div>Understanding of the scope (from internal kick-off call)</div></li>
+<li><div>Basic understanding of the client's business</div></li>
+<li><div>Expectations on project timelines</div></li>
+<li><div>Required team members and budgeted hours</div></li>
+<li><div>Billing milestones agreed internally</div></li>
+<li><div>Technical partner details, if any</div></li>
+<li><div>Client SPOCs identified and noted</div></li>
+</ol>
+
+<div class="divider"></div>
+<h2>B — Business Understanding (Gemini Prompt)</h2>
+<p>Run this prompt in Gemini Deep Research before the first client call. Save the output as a Word file named <code>Business Understanding</code>.</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>You are an expert business analyst. Analyze and explain the business model and operations of the following company:
+
+Company Name: [Insert company name]
+
+Cover these key aspects:
+
+1. Overview: Basic details (founding year, HQ, ownership), industry, and main markets.
+2. Operations: Core business areas, products/services, and target customer segments.
+3. Revenue Model: Primary income sources and how the company monetizes its offerings.
+4. Business Model: How the company creates and delivers value; value chain or operating model.
+5. Industry Context: Main competitors, differentiators, and market positioning.
+6. Scale: Size of operations (revenue, employee base, regions covered, major subsidiaries).
+7. Key Study Areas: Critical aspects to analyze further (financials, market share, technology, supply chain, or risks).
+8. Recent Developments: Notable updates like acquisitions, leadership changes, or strategic initiatives.
+
+Present your analysis in a clear, structured, and insight-focused format.</div>
+
+<div class="divider"></div>
+<h2>C — Process Understanding (Gemini Prompt)</h2>
+<p>Run this prompt in Gemini Deep Research for each process area. Save output as <code>Process Understanding</code>. This becomes the base for your to-be flowcharts.</p>
+<div class="code-block"><button class="copy-btn" onclick="copyCode(this)">Copy</button>Explain in detail the ideal end-to-end business processes followed in the [industry name] industry — covering key functions such as operations, sales, finance, HR, procurement, and customer service. Describe how these processes interlink to deliver business outcomes efficiently.
+
+Then, outline the ideal organizational and team structure for a company in this industry, including key departments, leadership roles, reporting hierarchy, and approximate team size for small, medium, and large-scale businesses.
+
+Highlight best practices, efficiency enablers, and modern tools or technologies commonly used in this industry.</div>
+<p style="font-size:12px;color:var(--text-tertiary)">Note: Solutions should always be grounded in practical client realities, not just the ideal benchmark.</p>
+
+<div class="divider"></div>
+<h2>D — Questionnaire</h2>
+<p>Get the list of questions to ask before jumping into the call for those specific processes. Use the <span class="ilink" onclick="nav('prompts')">Questionnaire Prompt →</span></p>
+
+<div class="divider"></div>
+<h2>E — Industry Matrix</h2>
+<p>Use Gemini to research how the ideal business in that industry works and what the important metrics are. This research becomes part of the final diagnostic report.</p>`},
+
 laptop_checklist:{icon:"💻",label:"Laptop Checklist",parent:"hub",render:()=>`
 <div class="back-btn" onclick="nav('hub')">← Back</div>
 <div class="page-icon">💻</div>
@@ -4412,7 +4453,8 @@ ${[["Get Zoho Mail ID created","—","Falguni Bhanushali (HR)"],["Install Zoho C
 </tbody></table>`}
 };
 
-const tree=[{id:"hub",ch:[{id:"welcome"},{id:"about"},{id:"our_role"},{id:"ground_rules"},{id:"laptop_checklist"},{id:"foldering"},{id:"concepts",ch:[{id:"concept_gl"},{id:"concept_enterprise"},{id:"concept_migration"},{id:"concept_coa"},{id:"concept_special_gl"},{id:"concept_revenue"},{id:"concept_gst"},{id:"concept_crp_uat"},{id:"concept_mrp"},{id:"concept_production"},{id:"concept_invoice"},{id:"concept_roles"},{id:"concept_scenarios"},{id:"concept_rr"},{id:"concept_brd"},{id:"concept_reports"}]},{id:"lms"},{id:"pre_project"},{id:"sop_library",ch:[{id:"erp_impl",ch:[{id:"erp_impl_phase0"},{id:"erp_impl_phase1"},{id:"erp_impl_phase2"},{id:"erp_impl_phase3"},{id:"erp_impl_phase4"},{id:"erp_impl_phase5"},{id:"erp_impl_phase6"},{id:"erp_impl_phase7"}]},{id:"automation",ch:[{id:"auto_phase0"},{id:"auto_phase1"},{id:"auto_phase2"},{id:"auto_phase3"},{id:"auto_phase4"},{id:"auto_phase5"}]},{id:"master_data",ch:[{id:"mdc_phase0"},{id:"mdc_phase1"},{id:"mdc_phase2"},{id:"mdc_phase3"},{id:"mdc_customer"},{id:"mdc_vendor"},{id:"mdc_item"},{id:"mdc_coa"},{id:"mdc_employee"},{id:"mdc_other"}]},{id:"sop_prep",ch:[{id:"sop_prep_phase0"},{id:"sop_prep_phase1"},{id:"sop_prep_phase2"},{id:"sop_prep_phase3"},{id:"sop_prep_phase4"}]},{id:"sop_erp_diag",ch:[{id:"phase0"},{id:"phase1",ch:[{id:"understanding_prep"}]},{id:"phase2"},{id:"phase3"},{id:"approach"}]}]},{id:"templates",ch:[{id:"kickoff_email"},{id:"project_plan_email"},{id:"cadence_slot_email"},{id:"cadence_ppt_email"},{id:"cadence_format"},{id:"prompts"},{id:"credentials"}]},{id:"project_closure"}]}];let open=new Set(["hub","sop_library","templates"]);
+;const tree=[{id:"hub",ch:[{id:"welcome"},{id:"about"},{id:"our_role"},{id:"ground_rules"},{id:"laptop_checklist"},{id:"foldering"},{id:"concepts",ch:[{id:"concept_gl"},{id:"concept_enterprise"},{id:"concept_migration"},{id:"concept_coa"},{id:"concept_special_gl"},{id:"concept_revenue"},{id:"concept_gst"},{id:"concept_crp_uat"},{id:"concept_mrp"},{id:"concept_production"},{id:"concept_invoice"},{id:"concept_scenarios"},{id:"concept_rr"},{id:"concept_brd"},{id:"concept_reports"},{id:"concept_precall"}]},{id:"lms"},{id:"pre_project"},{id:"sop_library",ch:[{id:"erp_impl",ch:[{id:"erp_impl_phase0"},{id:"erp_impl_phase1"},{id:"erp_impl_phase2"},{id:"erp_impl_phase3"},{id:"erp_impl_phase4"},{id:"erp_impl_phase5"},{id:"erp_impl_phase6"},{id:"erp_impl_phase7"}]},{id:"automation",ch:[{id:"auto_phase0"},{id:"auto_phase1"},{id:"auto_phase2"},{id:"auto_phase3"},{id:"auto_phase4"},{id:"auto_phase5"}]},{id:"master_data",ch:[{id:"mdc_phase0"},{id:"mdc_phase1"},{id:"mdc_phase2"},{id:"mdc_phase3"},{id:"mdc_customer"},{id:"mdc_vendor"},{id:"mdc_item"},{id:"mdc_coa"},{id:"mdc_employee"},{id:"mdc_other"}]},{id:"sop_prep",ch:[{id:"sop_prep_phase0"},{id:"sop_prep_phase1"},{id:"sop_prep_phase2"},{id:"sop_prep_phase3"},{id:"sop_prep_phase4"}]},{id:"sop_erp_diag",ch:[{id:"phase0"},{id:"phase1"},{id:"phase2"},{id:"phase3"},{id:"approach"}]}]},{id:"templates",ch:[{id:"kickoff_email"},{id:"project_plan_email"},{id:"cadence_slot_email"},{id:"cadence_ppt_email"},{id:"cadence_format"},{id:"prompts"},{id:"credentials"}]},{id:"project_closure"}]}];
+let open=new Set(["hub","sop_library","templates"]);
 let cur="hub";
 
 function findNode(id,nodes){for(const n of nodes){if(n.id===id)return n;if(n.ch){const f=findNode(id,n.ch);if(f)return f;}}return null;}
