@@ -721,7 +721,35 @@ phase2:{icon:"2️⃣",label:"Phase 2: Analysis",parent:"sop_erp_diag",render:()
 <li><div>Use the resolved issue list and <span class="ilink" onclick="nav('prompts')">Flowchart Content Prompt (Prompt 4) →</span> in ChatGPT to generate to-be flowchart content.</div></li>
 <li><div>Build the to-be flowchart in Miro following the same template and style as the <span class="ilink" onclick="nav('phase2')">as-is flowchart in Task 2.1 →</span></div></li>
 <li><div>Submit for Project Manager review, then share with the client.</div></li>
-</ol>`},
+</ol>
+<div class="divider"></div>
+<h2>How We Categorise Gaps — Process, System & People</h2>
+<div class="callout"><div class="callout-icon">💡</div><div>Every gap identified in the as-is analysis must be classified into one of three types before a solution can be designed. The type of gap determines the type of solution. Misclassifying a gap leads to the wrong fix — which wastes time, budget, and goodwill.</div></div>
+
+<table class="raci-table"><thead><tr><th>Gap Type</th><th>Definition</th><th>Root Cause</th><th>Solution Direction</th></tr></thead><tbody>
+<tr><td><strong>🔄 Process Gap</strong></td><td>The business process itself is missing, incomplete, or poorly designed — independent of any system</td><td>The organisation never defined this process properly, or it evolved informally over time without documentation</td><td>Redesign the process first. Then configure the system to support the new process. Training follows.</td></tr>
+<tr><td><strong>💻 System Gap</strong></td><td>The process is correct and understood, but the current system cannot support it — or is being used incorrectly</td><td>The existing ERP/tool lacks the functionality, or the functionality exists but was never configured or switched on</td><td>Configure the existing system correctly, or implement a new system/module. May require customisation if the gap is genuine.</td></tr>
+<tr><td><strong>👥 People Gap</strong></td><td>The process is defined and the system supports it, but users are not following it — or lack the skill to use the system correctly</td><td>Insufficient training, lack of accountability, change resistance, or unclear ownership of the process</td><td>Training, SOPs, access controls, and change management. No new system needed — the solution is behavioural.</td></tr>
+</tbody></table>
+
+<h3>How to Categorise a Gap Correctly</h3>
+<p>Ask these three questions in order:</p>
+<ol class="steps">
+<li><div><strong>"Does a defined process exist for this?"</strong> — If No → Process Gap. Design the process before touching the system.</div></li>
+<li><div><strong>"Does the current system support this process?"</strong> — If No → System Gap. The tool needs to change. If Yes → continue to question 3.</div></li>
+<li><div><strong>"Are users following the process in the system?"</strong> — If No → People Gap. The solution is training and accountability, not a new system.</div></li>
+</ol>
+
+<h3>Real Examples from ERP Diagnostic Projects</h3>
+<table class="raci-table"><thead><tr><th>Observation</th><th>Correct Classification</th><th>Why</th></tr></thead><tbody>
+<tr><td>Vendor invoices are approved over WhatsApp and then entered into Tally manually</td><td>🔄 Process Gap</td><td>No formal approval workflow exists. The system (Tally) actually has no approval feature — but the real problem is the process hasn't been designed. Even with a new ERP, if the process isn't redesigned, approvals will still happen over WhatsApp.</td></tr>
+<tr><td>The ERP has a purchase order module but the team raises POs in Excel and uploads them manually at month-end</td><td>👥 People Gap</td><td>The system can do this — users just aren't using it. Training and enforcement needed, not a new system.</td></tr>
+<tr><td>The client needs multi-currency invoicing but Tally only supports single currency for their setup</td><td>💻 System Gap</td><td>The process is clear, the need is valid, but the current system genuinely cannot support it. Requires system change.</td></tr>
+<tr><td>Month-end close takes 15 days because reconciliation is done manually in Excel across 5 different files</td><td>🔄 Process Gap + 💻 System Gap</td><td>Mixed gap — the process is fragmented (process gap) AND the current system doesn't consolidate data (system gap). Both need fixing. Common in legacy system migrations.</td></tr>
+<tr><td>AR ageing reports are always wrong because team members don't clear invoices against receipts in the system</td><td>👥 People Gap</td><td>The system has the knocking-off feature. Users know it exists but find it easier to skip it. Training + management accountability needed.</td></tr>
+</tbody></table>
+
+<div class="callout"><div class="callout-icon">⚠️</div><div><strong>Common mistake:</strong> Classifying everything as a System Gap because the client wants a new ERP. Many organisations use the ERP project as a reason to fix People and Process gaps they were too comfortable to address before. If you don't correctly identify the true gap type, the client will spend ₹X crore on a new ERP and find the same problems six months later — because the root cause was never addressed.</div></div>`},
 
 phase3:{icon:"3️⃣",label:"Phase 3: Report",parent:"sop_erp_diag",render:()=>`
 <div class="back-btn" onclick="nav('sop_erp_diag')">← ERP Diagnostics SOP</div>
@@ -1062,23 +1090,66 @@ foldering:{icon:"📁",label:"Foldering Structure",parent:"hub",render:()=>`
 <div class="back-btn" onclick="nav('hub')">← Back</div>
 <div class="page-icon">📁</div>
 <h1 class="page-title">Foldering Structure</h1>
-<div class="page-desc">Create a folder on OneDrive (or client drive if they insist) and share it with all stakeholders at the start of every project. Follow this exact folder structure.</div>
+<div class="page-desc">All project files are stored in the central repository on SharePoint. Follow the 5-level folder structure below for every project — without exception. Consistent foldering means any team member can find any file in under 30 seconds.</div>
 
-<h2>ERP Diagnostics — Folder Structure</h2>
-<table class="raci-table"><thead><tr><th>#</th><th>Folder</th><th>Sub-folder</th><th>File naming convention</th></tr></thead><tbody>
-<tr><td>1</td><td><strong>Deliverables</strong></td><td>Project plan</td><td>Project Plan_Client name</td></tr>
-<tr><td></td><td></td><td>Cadence decks</td><td>Status update_Date</td></tr>
-<tr><td></td><td></td><td>Diagnostics report</td><td>Diagnostics report_Client name</td></tr>
-<tr><td>2</td><td><strong>Files received from client</strong></td><td>All files received</td><td>As received from client</td></tr>
-<tr><td>3</td><td><strong>Business & Process understanding</strong></td><td>Call recordings</td><td>Process name_Date</td></tr>
-<tr><td></td><td></td><td>MoMs</td><td>Process name_Date</td></tr>
-<tr><td>4</td><td><strong>Working</strong></td><td>Research_Business</td><td>Business Understanding</td></tr>
-<tr><td></td><td></td><td>Research_Processes</td><td>Process Understanding</td></tr>
-<tr><td></td><td></td><td>Research_Questionnaire</td><td>Questionnaire</td></tr>
-<tr><td></td><td></td><td>Observations</td><td>Observation list</td></tr>
-<tr><td></td><td></td><td>Data analysis</td><td>Data analysis_Details</td></tr>
-<tr><td></td><td></td><td>Any other working file</td><td>File name should explain the content</td></tr>
-</tbody></table>`},
+<div class="callout"><div class="callout-icon">📂</div><div><strong>Central Repository:</strong> All files live here — <a href="https://contetrapvt-my.sharepoint.com/:f:/g/personal/piyush_kothari_contetra_com/EiZ2y7GaVrBLj3M0qLZYvSQBEsJ6eT5b1GKj-oW_mIi0Iw" target="_blank" style="color:var(--accent);font-weight:500">Open Digital Transformation Repository →</a></div></div>
+
+<div class="divider"></div>
+<h2>The 5-Level Structure</h2>
+<p>Every file in the repository sits at exactly Level 5. No files should be stored at Level 1, 2, 3, or 4 — only inside the appropriate Level 5 folder.</p>
+
+<table class="raci-table"><thead><tr><th>Level</th><th>Name</th><th>Purpose</th><th>Examples</th></tr></thead><tbody>
+<tr><td><strong>Level 1</strong></td><td>Department</td><td>Identifies which team owns the files</td><td>Process Excellence, KPO, HR, Finance</td></tr>
+<tr><td><strong>Level 2</strong></td><td>Client Name</td><td>Groups all files related to a specific client</td><td>NuSummit, Arjun Textiles, ABC Pharma</td></tr>
+<tr><td><strong>Level 3</strong></td><td>Project Type</td><td>Defines the type of work being done</td><td>ERP Implementation, ERP Diagnostic, Automation, Master Data Cleanup, SOP Preparation</td></tr>
+<tr><td><strong>Level 4</strong></td><td>Document Category</td><td>Organises files by their purpose within the project</td><td>Project Initiation, Working Files, Communications, Deliverables, Client Files</td></tr>
+<tr><td><strong>Level 5</strong></td><td>Working Files</td><td>The actual working and editable documents</td><td>BRD_v1.docx, Cadence_Week3.pptx, MoM_Finance_12Jan.docx</td></tr>
+</tbody></table>
+
+<div class="divider"></div>
+<h2>Visual Structure</h2>
+<div style="background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:10px;padding:20px;font-family:monospace;font-size:13px;line-height:2">
+<div style="color:var(--accent);font-weight:700">📁 Department (e.g. Process Excellence)</div>
+<div style="padding-left:24px;color:var(--text-primary)">📁 Client Name (e.g. NuSummit)</div>
+<div style="padding-left:48px;color:var(--text-primary)">📁 Project Type (e.g. ERP Implementation)</div>
+<div style="padding-left:72px;color:var(--text-secondary)">📁 Project Initiation</div>
+<div style="padding-left:96px;color:var(--text-tertiary)">📄 Kick-off Email_NuSummit.docx</div>
+<div style="padding-left:96px;color:var(--text-tertiary)">📄 Project Plan_NuSummit_v1.xlsx</div>
+<div style="padding-left:72px;color:var(--text-secondary)">📁 Deliverables</div>
+<div style="padding-left:96px;color:var(--text-tertiary)">📄 BRD_NuSummit_v3.docx</div>
+<div style="padding-left:96px;color:var(--text-tertiary)">📄 Cadence_Week4_NuSummit.pptx</div>
+<div style="padding-left:72px;color:var(--text-secondary)">📁 Working Files</div>
+<div style="padding-left:96px;color:var(--text-tertiary)">📄 Fit-Gap_Analysis_Finance.xlsx</div>
+<div style="padding-left:96px;color:var(--text-tertiary)">📄 As-Is_O2C_Process.pdf</div>
+<div style="padding-left:72px;color:var(--text-secondary)">📁 Communications</div>
+<div style="padding-left:96px;color:var(--text-tertiary)">📄 MoM_Finance_12Jan.docx</div>
+<div style="padding-left:96px;color:var(--text-tertiary)">📄 MoM_HR_15Jan.docx</div>
+<div style="padding-left:72px;color:var(--text-secondary)">📁 Client Files</div>
+<div style="padding-left:96px;color:var(--text-tertiary)">📄 TrialBalance_Oct2024.xlsx</div>
+<div style="padding-left:96px;color:var(--text-tertiary)">📄 OrgChart_NuSummit.pdf</div>
+</div>
+
+<div class="divider"></div>
+<h2>Standard Document Categories (Level 4)</h2>
+<table class="raci-table"><thead><tr><th>Category</th><th>What Goes Here</th></tr></thead><tbody>
+<tr><td><strong>Project Initiation</strong></td><td>Kick-off email, project plan, SPOC list, scope document, billing milestone tracker</td></tr>
+<tr><td><strong>Deliverables</strong></td><td>BRD, as-is flowcharts, to-be flowcharts, cadence decks, diagnostic report, closure report — anything shared with and signed off by the client</td></tr>
+<tr><td><strong>Working Files</strong></td><td>Fit-gap analysis, data analysis, questionnaires, research notes, draft documents — internal working files not yet delivered to client</td></tr>
+<tr><td><strong>Communications</strong></td><td>MoMs from all calls, email threads exported as PDFs, call recordings</td></tr>
+<tr><td><strong>Client Files</strong></td><td>Any document received from the client — trial balances, org charts, existing SOPs, data exports. Store as received — do not rename.</td></tr>
+</tbody></table>
+
+<div class="divider"></div>
+<h2>File Naming Rules</h2>
+<ol class="steps">
+<li><div><strong>Include the document type and client name:</strong> <code>BRD_NuSummit_v2.docx</code> not <code>final doc.docx</code></div></li>
+<li><div><strong>Include version numbers for documents that go through review cycles:</strong> <code>_v1</code>, <code>_v2</code>, <code>_Final</code></div></li>
+<li><div><strong>Include the date for time-stamped documents:</strong> <code>MoM_Finance_12Jan.docx</code>, <code>Cadence_Week3_15Jan.pptx</code></div></li>
+<li><div><strong>Never use:</strong> "final final", "new", "copy of", "updated" — these are meaningless. Use version numbers instead.</div></li>
+<li><div><strong>Client files:</strong> Store as received. Do not rename files received from clients — the original filename may have reference numbers the client uses to track their documents.</div></li>
+</ol>
+
+<div class="callout"><div class="callout-icon">⚠️</div><div><strong>Non-negotiable rule:</strong> Nothing gets stored on personal drives, desktops, or local folders. If it is not in the repository, it does not exist — and it will not be found when you leave the project or the team.</div></div>`},
 
 
 
@@ -3376,7 +3447,28 @@ concept_gl:{icon:"📒",label:"GL & Sub-GL",parent:"concepts",render:()=>`
 <tr><td>Who uses it</td><td>Operational staff (Sales, AP, AR clerks)</td><td>Management, Auditors, Investors</td></tr>
 <tr><td>Purpose</td><td>Track specific parties and items</td><td>Prepare Financial Statements</td></tr>
 <tr><td>Example</td><td>"Raju Textiles owes ₹50,000"</td><td>"Total Receivables: ₹8,00,000"</td></tr>
-</tbody></table>`},
+</tbody></table>
+<div class="divider"></div>
+<h2>Why Does the GL Always Match the Sub-GL?</h2>
+<div class="callout"><div class="callout-icon">💡</div><div>This is one of the most important controls in accounting. The GL balance for Accounts Receivable must <strong>always equal</strong> the sum of every individual customer's outstanding balance in the Sub-GL. If they don't match — something has gone wrong and it must be investigated immediately.</div></div>
+
+<h3>How the Match is Maintained</h3>
+<p>Every single transaction posted in the ERP hits <strong>both</strong> the Sub-GL and the GL simultaneously — not one after the other, but in the same posting:</p>
+<ol class="steps">
+<li><div>A sales invoice for Customer A (₹1,000) is posted → the system <strong>simultaneously</strong> adds ₹1,000 to Customer A's Sub-GL account AND adds ₹1,000 to the AR control account in the GL. One posting, two records updated at the same moment.</div></li>
+<li><div>A payment receipt from Customer A (₹1,000) is posted → the system <strong>simultaneously</strong> removes ₹1,000 from Customer A's Sub-GL AND removes ₹1,000 from the AR control account in the GL.</div></li>
+<li><div>The GL account (AR control) never gets posted to directly — it only moves when a Sub-GL transaction is posted. This is what guarantees the match.</div></li>
+</ol>
+
+<h3>Why It Can Go Out of Balance — And What To Do</h3>
+<table class="raci-table"><thead><tr><th>Cause of Mismatch</th><th>How It Happens</th><th>How to Fix</th></tr></thead><tbody>
+<tr><td>Manual journal entry directly to the GL control account</td><td>Someone posts a JV directly to "Accounts Receivable" in the GL without going through the AR module</td><td>Reverse the manual JV and post the correct entry through the proper module</td></tr>
+<tr><td>Data migration error</td><td>Opening balances were loaded into the GL but not into individual customer Sub-GL accounts (or vice versa)</td><td>Reconcile the migration data and post correcting entries to the Sub-GL</td></tr>
+<tr><td>System configuration error</td><td>A posting profile was incorrectly mapped during ERP setup</td><td>Correct the configuration and post adjusting entries</td></tr>
+<tr><td>Rounding differences</td><td>Currency conversion or tax rounding creates tiny differences (₹0.01 or ₹0.02)</td><td>Acceptable up to a threshold — post to a rounding difference account</td></tr>
+</tbody></table>
+
+<div class="callout"><div class="callout-icon">⚠️</div><div><strong>During ERP implementation:</strong> Always run a GL vs Sub-GL reconciliation report after every data migration step. A mismatch discovered at go-live is a critical blocker. A mismatch discovered six months after go-live is a financial statement error.</div></div>`},
 
 concept_enterprise:{icon:"🏗️",label:"Enterprise Structure",parent:"concepts",render:()=>`
 <div class="back-btn" onclick="nav('concepts')">← Important Concepts</div>
